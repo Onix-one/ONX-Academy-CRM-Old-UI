@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Student>
+<h1>List of Students</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Middle Name</th>
+    </tr>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.Id</td>
+            <td>@student.LastName</td>
+            <td>@student.FirstName</td>
+            <td>@student.MiddleName</td>
+            <td>
+                <a asp-action="Edit" asp-route-Id="@student.Id"
+                   class="btn btn-outline-primary">
+                    Edit
+                </a>
+            </td>
+            <td>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" name="Id" value="@student.Id" />
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            <div class="text-info">Total: @Model.Count()</div>
+        </td>
+    </tr>
+</table>
+<a class="btn btn-success" asp-action="Create">Add new student</a>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
