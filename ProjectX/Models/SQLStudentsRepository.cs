@@ -18,19 +18,19 @@ namespace ProjectX.Models
         {
             return _db.Students.Find(id);
         }
-        public void Create(Student book)
+        public void Create(Student student)
         {
-            _db.Students.Add(book);
+            _db.Students.Add(student);
         }
-        public void Update(Student book)
+        public void Update(Student student)
         {
-            _db.Entry(book).State = EntityState.Modified;
+            _db.Entry(student).State = EntityState.Modified;
         }
         public void Delete(int id)
         {
-            Student book = _db.Students.Find(id);
-            if (book != null)
-                _db.Students.Remove(book);
+            Student student = _db.Students.Find(id);
+            if (student != null)
+                _db.Students.Remove(student);
         }
         public void Save()
         {

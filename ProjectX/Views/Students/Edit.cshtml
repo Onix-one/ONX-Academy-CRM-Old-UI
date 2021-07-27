@@ -3,18 +3,18 @@
 <form asp-action="Edit" method="post">
     <div class="form-group">
         <label asp-for="LastName"></label>
-        <input asp-for="LastName" class="form-control" />
+        <input asp-for="LastName" class="form-control" required />
     </div>
     <div class="form-group">
         <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" class="form-control" />
+        <input asp-for="FirstName" class="form-control" required />
     </div>
     <div class="form-group">
         <label asp-for="MiddleName"></label>
-        <input asp-for="MiddleName" class="form-control" />
+        <input asp-for="MiddleName" class="form-control" required />
     </div>
     <div class="text-center">
-        <button class="btn btn-primary" type="submit" asp-action="Edit" method="post">Save</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a class="btn btn-secondary" asp-action="Index" >Cancel</a>
     </div>
 </form>

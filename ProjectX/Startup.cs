@@ -30,11 +30,12 @@ namespace ProjectX
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseResponseCaching();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
+               endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });

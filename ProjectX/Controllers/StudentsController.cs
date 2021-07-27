@@ -12,8 +12,7 @@ namespace ProjectX.Controllers
         }
         public IActionResult Index()
         {
-            var students = _db.GetStudentsList();
-            return View(students);
+            return View(_db.GetStudentsList());
         }
         [HttpGet]
         public IActionResult Create()
@@ -23,14 +22,11 @@ namespace ProjectX.Controllers
         [HttpPost]
         public IActionResult Create(Student student)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Create(student);
-                _db.Save();
-                return RedirectToAction("Index");
-            }
-            return View(student);
+            _db.Create(student);
+            _db.Save();
+            return RedirectToAction("Index");
         }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -40,22 +36,13 @@ namespace ProjectX.Controllers
         [HttpPost]
         public IActionResult Edit(Student student)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Update(student);
-                _db.Save();
-                return RedirectToAction("Index");
-            }
-            return View(student);
+            _db.Update(student);
+            _db.Save();
+            return RedirectToAction("Index");
         }
-        [HttpGet]
+
+        [HttpPost]
         public IActionResult Delete(int id)
-        {
-            Student student = _db.GetStudent(id);
-            return View(student);
-        }
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
         {
             _db.Delete(id);
             _db.Save();
