@@ -1,4 +1,4 @@
-﻿namespace ProjectX.Models
+﻿namespace ProjectX.BLL.Models
 {
     public class Student
     {

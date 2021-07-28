@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProjectX.BLL.Models;
+using ProjectX.DAL;
+using ProjectX.DAL.EF.Repositories;
 
-namespace ProjectX
+namespace ProjectX.MVC
 {
     public class Startup
     {
@@ -15,6 +18,7 @@ namespace ProjectX
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IRepository<Student>, SqlStudentsRepository>();
             services.AddControllersWithViews();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

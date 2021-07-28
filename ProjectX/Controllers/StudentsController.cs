@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProjectX.Models;
+using ProjectX.BLL.Models;
+using ProjectX.DAL;
 
-namespace ProjectX.Controllers
+namespace ProjectX.MVC.Controllers
 {
     public class StudentsController : Controller
     {
-        IRepository _db;
-        public StudentsController()
+        IRepository<Student> _db;
+        public StudentsController(IRepository<Student> studentsRepository)
         {
-            _db = new SqlStudentsRepository();
+            _db = studentsRepository;
         }
         public IActionResult Index()
         {
-            return View(_db.GetStudentsList());
+            return View(_db.GetAll());
         }
         [HttpGet]
         public IActionResult Create()
@@ -26,7 +27,6 @@ namespace ProjectX.Controllers
             _db.Save();
             return RedirectToAction("Index");
         }
-
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -40,7 +40,6 @@ namespace ProjectX.Controllers
             _db.Save();
             return RedirectToAction("Index");
         }
-
         [HttpPost]
         public IActionResult Delete(int id)
         {

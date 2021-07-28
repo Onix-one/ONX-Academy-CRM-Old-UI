@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace ProjectX
+namespace ProjectX.MVC
 {
     public class Program
     {
