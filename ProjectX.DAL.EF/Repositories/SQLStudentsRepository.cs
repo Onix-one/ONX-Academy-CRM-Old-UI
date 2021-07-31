@@ -1,42 +1,44 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ProjectX.BLL.Models;
 using ProjectX.DAL.EF.Contexts;
+using ProjectX.DAL.Interfaces;
 
 namespace ProjectX.DAL.EF.Repositories
 {
     public class SqlStudentsRepository : IRepository<Student>
     {
-        private StudentsContext _db;
-        public SqlStudentsRepository()
+        private StudentsContext _context;
+        public SqlStudentsRepository(StudentsContext context)
         {
-            this._db = new StudentsContext();
+            _context = context;
         }
         public IEnumerable<Student> GetAll()
         {
-            return _db.Students;
+            return _context.Students.ToList();
         }
         public Student GetStudent(int id)
         {
-            return _db.Students.Find(id);
+            return _context.Students.Find(id);
         }
         public void Create(Student student)
         {
-            _db.Students.Add(student);
+            _context.Students.Add(student);
         }
         public void Update(Student student)
         {
-            _db.Entry(student).State = EntityState.Modified;
+            _context.Entry(student).State = EntityState.Modified;
         }
         public void Delete(int id)
         {
-            Student student = _db.Students.Find(id);
+            Student student = _context.Students.Find(id);
             if (student != null)
-                _db.Students.Remove(student);
+                _context.Students.Remove(student);
         }
         public void Save()
         {
-            _db.SaveChanges();
+            _context.SaveChanges();
         }
     }
 }
