@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectX.MVC", "ProjectX\ProjectX.MVC.csproj", "{7FFF0298-6EE6-4B52-99BE-CB9BC9FE0184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectX.BLL", "ProjectX.BLL\ProjectX.BLL.csproj", "{FF2A3967-645A-4BC6-8CA1-6B66674AB529}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectX.BLL", "ProjectX.BLL\ProjectX.BLL.csproj", "{FF2A3967-645A-4BC6-8CA1-6B66674AB529}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectX.DAL", "ProjectX.DAL\ProjectX.DAL.csproj", "{ACCBD79A-9763-4925-ACEC-8DDBF5F4D35D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectX.DAL", "ProjectX.DAL\ProjectX.DAL.csproj", "{ACCBD79A-9763-4925-ACEC-8DDBF5F4D35D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectX.DAL.EF", "ProjectX.DAL.EF\ProjectX.DAL.EF.csproj", "{174CA0DC-BACE-44BC-A06B-825816AFBEA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectX.DAL.EF", "ProjectX.DAL.EF\ProjectX.DAL.EF.csproj", "{174CA0DC-BACE-44BC-A06B-825816AFBEA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

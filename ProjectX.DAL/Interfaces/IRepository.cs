@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProjectX.DAL
+namespace ProjectX.DAL.Interfaces
 {
     public interface IRepository<T> 
     {

@@ -4,8 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjectX.BLL.Models;
-using ProjectX.DAL;
+using ProjectX.BLL.Interfaces;
+using ProjectX.BLL.Services;
+using ProjectX.DAL.EF.Contexts;
 using ProjectX.DAL.EF.Repositories;
+using ProjectX.DAL.Interfaces;
 
 namespace ProjectX.MVC
 {
@@ -18,7 +21,11 @@ namespace ProjectX.MVC
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvcCore();
             services.AddScoped<IRepository<Student>, SqlStudentsRepository>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddDbContext<StudentsContext>();
+            
             services.AddControllersWithViews();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -32,14 +39,14 @@ namespace ProjectX.MVC
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseResponseCaching();
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-               endpoints.MapControllerRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
