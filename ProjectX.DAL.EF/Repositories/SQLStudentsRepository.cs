@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using ProjectX.BLL.Models;
+using ProjectX.DAL.EF.Contexts;
 
-namespace ProjectX.Models
+namespace ProjectX.DAL.EF.Repositories
 {
-    public class SqlStudentsRepository : IRepository
+    public class SqlStudentsRepository : IRepository<Student>
     {
         private StudentsContext _db;
         public SqlStudentsRepository()
         {
             this._db = new StudentsContext();
         }
-        public IEnumerable<Student> GetStudentsList()
+        public IEnumerable<Student> GetAll()
         {
             return _db.Students;
         }
