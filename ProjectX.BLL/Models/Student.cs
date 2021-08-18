@@ -1,10 +1,11 @@
-﻿namespace ProjectX.BLL.Models
+﻿using ProjectX.BLL.Enums;
+
+namespace ProjectX.BLL.Models
 {
-    public class Student
+    public class Student : Person
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
+        public int? GroupId { get; set; }
+        public Group Group { get; set; }
+        public StudentType? Type { get; set; }
     }
 }

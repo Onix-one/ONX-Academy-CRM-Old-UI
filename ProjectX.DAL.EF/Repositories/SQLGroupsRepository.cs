@@ -1,0 +1,60 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using ProjectX.BLL.Models;
+using ProjectX.DAL.EF.Contexts;
+using ProjectX.DAL.Interfaces;
+
+namespace ProjectX.DAL.EF.Repositories
+{
+    public class SqlGroupsRepository : IRepository<Group>
+    {
+        private readonly Context _context;
+        public SqlGroupsRepository(Context context)
+        {
+            _context = context;
+        }
+        public IEnumerable<Group> GetAll()
+        {
+            return _context.Groups
+                .Include(_ => _.Students)
+                .Include(_ => _.Teacher).ToList();
+        }
+        public Group GetEntity(int id)
+        {
+            return _context.Groups.Find(id);
+        }
+        public void Create(Group group)
+        {
+            _context.Groups.Add(group);
+        }
+        public void Update(Group group)
+        {
+            _context.Groups.Update(group);
+        }
+        public void Delete(int id)
+        {
+
+
+            Group group = _context.Groups.Find(id);
+            List<Student> students = _context.Students.ToList();
+            foreach (var student in students)
+            {
+                if (student.GroupId == id)
+                {
+                    student.GroupId = null;
+                    _context.Students.Update(student);
+                    _context.SaveChanges();
+                }
+            }
+
+
+            if (group != null)
+                _context.Groups.Remove(group);
+        }
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+    }
+}

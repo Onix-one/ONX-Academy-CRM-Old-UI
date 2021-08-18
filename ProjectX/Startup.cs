@@ -1,31 +1,31 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProjectX.BLL.Models;
-using ProjectX.BLL.Interfaces;
-using ProjectX.BLL.Services;
 using ProjectX.DAL.EF.Contexts;
-using ProjectX.DAL.EF.Repositories;
-using ProjectX.DAL.Interfaces;
+using ProjectX.MVC.ServiceExtensions;
 
 namespace ProjectX.MVC
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-        public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcCore();
-            services.AddScoped<IRepository<Student>, SqlStudentsRepository>();
-            services.AddScoped<IStudentService, StudentService>();
-            services.AddDbContext<StudentsContext>();
-            
+            services.AddDbContext<Context>(options =>
+                options.UseSqlServer
+                    (Configuration["SqlServer:ConnectionString"]));
+            services.AddMapper();
+            services.AddRepositories();
+            services.AddEntitiesServices();
             services.AddControllersWithViews();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

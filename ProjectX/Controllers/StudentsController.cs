@@ -1,46 +1,74 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
-using ProjectX.DAL;
-using ProjectX.DAL.Interfaces;
+using ProjectX.MVC.ViewModel;
 
 namespace ProjectX.MVC.Controllers
 {
     public class StudentsController : Controller
     {
-        private IStudentService _studentService;
+        private readonly IStudentService _studentService;
+        private readonly IGroupService _groupService;
+        private readonly IMapper _mapper;
 
-        public StudentsController(IStudentService studentService)
+        public StudentsController(IStudentService studentService, IGroupService groupService, IMapper mapper)
         {
+            _mapper = mapper;
             _studentService = studentService;
+            _groupService = groupService;
         }
 
         public IActionResult Index()
         {
-            return View(_studentService.GetAll());
+            var students = _studentService.GetAll();
+            return View(_mapper.Map<IEnumerable<StudentViewModel>>(students));
         }
         [HttpGet]
         public IActionResult Create()
         {
+            var groupsCollection = _groupService.GetAll();
+            ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Student student)
+        public IActionResult Create(StudentViewModel student)
         {
-            _studentService.Create(student);
+            ModelState.Remove("GroupId");
+            ModelState.Remove("Type");
+            if (!ModelState.IsValid)
+            {
+                var groupsCollection = _groupService.GetAll();
+                ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
+                return View(student);
+            }
+            var newStudent = _mapper.Map<Student>(student);
+            _studentService.Create(newStudent);
             _studentService.Save();
             return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Student student = _studentService.GetStudent(id);
-            return View(student);
+            var groupsCollection = _groupService.GetAll();
+            ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
+            return View(_mapper.Map<StudentViewModel>(_studentService.GetStudent(id)));
         }
         [HttpPost]
-        public IActionResult Edit(Student student)
+        public IActionResult Edit(StudentViewModel student)
         {
-            _studentService.Update(student);
+       
+            ModelState.Remove("GroupId");
+            ModelState.Remove("Type");
+            if (!ModelState.IsValid)
+            {
+                var groupsCollection = _groupService.GetAll();
+                ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
+                return View(student);
+            }
+            var editStudent = _mapper.Map<Student>(student);
+            _studentService.Update(editStudent);
             _studentService.Save();
             return RedirectToAction("Index");
         }

@@ -7,21 +7,21 @@ namespace ProjectX.BLL.Services
 {
     public class StudentService : IStudentService
     {
-        private IRepository<Student> _repository;
+        private readonly IRepository<Student> _repository;
 
         public StudentService(IRepository<Student> repository)
         {
             _repository = repository;
         }
 
-        IEnumerable<Student> IStudentService.GetAll()
+        public IEnumerable<Student> GetAll()
         {
             return _repository.GetAll();
         }
 
         public Student GetStudent(int id)
         {
-            return _repository.GetStudent(id);
+            return _repository.GetEntity(id);
         }
 
         public void Create(Student item)

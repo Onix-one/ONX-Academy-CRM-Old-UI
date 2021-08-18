@@ -5,7 +5,7 @@ namespace ProjectX.DAL.Interfaces
     public interface IRepository<T> 
     {
         IEnumerable<T> GetAll();
-        T GetStudent(int id);
+        T GetEntity(int id);
         void Create(T item);
         void Update(T item);
         void Delete(int id);

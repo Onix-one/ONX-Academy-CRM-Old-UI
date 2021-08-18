@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ProjectX.BLL.Models;
 
 namespace ProjectX.BLL.Interfaces
 {
-    public interface IStudentService 
+    public interface IStudentService
     {
         IEnumerable<Student> GetAll();
         Student GetStudent(int id);

@@ -1,0 +1,53 @@
+﻿@using ProjectX.MVC.ViewModel
+@{
+    var viewData = (IEnumerable<GroupViewModel>)ViewData["Groups"];
+    var groups = viewData.ToList();
+}
+
+@model GroupViewModel
+
+<h1>List of Groups</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Number</th>
+        <th>Teacher</th>
+        <th>StartDate</th>
+        <th>Status</th>
+    </tr>
+    @foreach (var group in groups)
+    {
+        <tr>
+            <td>@group.Id</td>
+            <td>@group.Number</td>
+            @if (group.TeacherName != null)
+            {
+                <td>@group.TeacherName</td>
+            }
+            else
+            {
+                <td></td>
+            }
+            <td>@group.StartDate</td>
+            <td>@group.Status.ToString()</td>
+            <td>
+                <a asp-action="Edit" asp-route-Id="@group.Id"
+                       class="btn btn-outline-primary">
+                        Edit
+                    </a>
+            </td>
+            <td>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="@group.Id" />
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            <div class="text-info">Total: @groups.Count()</div>
+        </td>
+    </tr>
+</table>
+<a class="btn btn-success" asp-action="Create">Add new group</a>

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ProjectX.BLL.Enums;
 
 namespace ProjectX.MVC.ViewModel
 {
-    public class StudentViewModel
+    public class StudentViewModel : PersonVeiwModel
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
+        public int? GroupId { get; set; }
+        public GroupViewModel Group { get; set; }
+        public StudentType? Type { get; set; }
+
     }
 }

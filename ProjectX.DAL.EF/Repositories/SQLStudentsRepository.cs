@@ -9,16 +9,16 @@ namespace ProjectX.DAL.EF.Repositories
 {
     public class SqlStudentsRepository : IRepository<Student>
     {
-        private StudentsContext _context;
-        public SqlStudentsRepository(StudentsContext context)
+        private readonly Context _context;
+        public SqlStudentsRepository(Context context)
         {
             _context = context;
         }
         public IEnumerable<Student> GetAll()
         {
-            return _context.Students.ToList();
+            return _context.Students.Include(_=>_.Group).ToList();
         }
-        public Student GetStudent(int id)
+        public Student GetEntity(int id)
         {
             return _context.Students.Find(id);
         }
@@ -28,7 +28,7 @@ namespace ProjectX.DAL.EF.Repositories
         }
         public void Update(Student student)
         {
-            _context.Entry(student).State = EntityState.Modified;
+            _context.Students.Update(student);
         }
         public void Delete(int id)
         {
