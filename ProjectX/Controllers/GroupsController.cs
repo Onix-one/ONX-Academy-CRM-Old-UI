@@ -37,7 +37,6 @@ namespace ProjectX.MVC.Controllers
         public IActionResult Create(GroupViewModel group)
         {
             ModelState.Remove("TeacherId");
-            ModelState.Remove("Status");
             if (!ModelState.IsValid)
             {
                 ViewBag.Teachers = _teachersCollectionForViewModel;
@@ -59,7 +58,6 @@ namespace ProjectX.MVC.Controllers
         public IActionResult Edit(GroupViewModel group)
         {
             ModelState.Remove("TeacherId");
-            ModelState.Remove("Status");
             if (!ModelState.IsValid)
             {
                 ViewBag.Teachers = _teachersCollectionForViewModel;
