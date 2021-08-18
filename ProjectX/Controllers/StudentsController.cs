@@ -35,7 +35,6 @@ namespace ProjectX.MVC.Controllers
         [HttpPost]
         public IActionResult Create(StudentViewModel student)
         {
-            ModelState.Remove("GroupId");
             if (!ModelState.IsValid)
             {
                 var groupsCollection = _groupService.GetAll();
@@ -57,8 +56,6 @@ namespace ProjectX.MVC.Controllers
         [HttpPost]
         public IActionResult Edit(StudentViewModel student)
         {
-       
-            ModelState.Remove("GroupId");
             if (!ModelState.IsValid)
             {
                 var groupsCollection = _groupService.GetAll();
