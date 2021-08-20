@@ -10,7 +10,7 @@ namespace ProjectX.DAL.EF.Contexts
         public DbSet<Teacher> Teachers { get; set; } = default;
         public DbSet<Course> Courses { get; set; } = default;
         public DbSet<Specialization> Specializations { get; set; } = default;
-
+        public DbSet<StudentRequest> StudentRequests { get; set; } = default;
 
         public Context() { }
         public Context(DbContextOptions<Context> options) : base(options){}

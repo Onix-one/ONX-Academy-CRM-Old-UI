@@ -12,6 +12,9 @@ namespace ProjectX.MVC.ServiceExtensions
             services.AddScoped<IRepository<Student>, SqlStudentsRepository>();
             services.AddScoped<IRepository<Group>, SqlGroupsRepository>();
             services.AddScoped<IRepository<Teacher>, SqlTeachersRepository>();
+            services.AddScoped<IRepository<Course>, SqlCoursesRepository>();
+            services.AddScoped<IRepository<Specialization>, SqlSpecializationsRepository>();
+            services.AddScoped<IRepository<StudentRequest>, SqlStudentRequestsRepository>();
             return services;
         }
     }

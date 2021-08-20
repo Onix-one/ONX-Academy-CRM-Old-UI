@@ -17,8 +17,8 @@ namespace ProjectX.DAL.EF.Repositories
         public IEnumerable<Group> GetAll()
         {
             return _context.Groups
-                .Include(_ => _.Students)
-                .Include(_ => _.Teacher).ToList();
+                .Include(_ => _.Students).AsNoTracking()
+                .Include(_ => _.Teacher).AsNoTracking().ToList();
         }
         public Group GetEntity(int id)
         {
@@ -37,7 +37,7 @@ namespace ProjectX.DAL.EF.Repositories
 
 
             Group group = _context.Groups.Find(id);
-            List<Student> students = _context.Students.ToList();
+            List<Student> students = _context.Students.AsNoTracking().ToList();
             foreach (var student in students)
             {
                 if (student.GroupId == id)

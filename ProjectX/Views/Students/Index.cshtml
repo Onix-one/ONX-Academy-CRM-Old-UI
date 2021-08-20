@@ -31,7 +31,7 @@
 
     <td>@student.Type.ToString()</td>
     <td>
-        <a asp-action="Edit" asp-route-Id="@student.Id"
+        <a asp-controller="Students" asp-action="Edit" asp-route-Id="@student.Id"
            class="btn btn-outline-primary">
             Edit
         </a>
@@ -50,4 +50,4 @@
         </td>
     </tr>
 </table>
-<a class="btn btn-success" asp-action="Create">Add new student</a>
+<a class="btn btn-success" asp-controller="Students" asp-action="Edit">Add new student</a>

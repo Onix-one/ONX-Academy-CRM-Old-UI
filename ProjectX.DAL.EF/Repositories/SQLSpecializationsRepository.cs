@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using ProjectX.BLL.Models;
 using ProjectX.DAL.EF.Contexts;
 using ProjectX.DAL.Interfaces;
@@ -15,7 +16,7 @@ namespace ProjectX.DAL.EF.Repositories
         }
         public IEnumerable<Specialization> GetAll()
         {
-            return _context.Specializations.ToList();
+            return _context.Specializations.AsNoTracking().ToList();
         }
         public Specialization GetEntity(int id)
         {

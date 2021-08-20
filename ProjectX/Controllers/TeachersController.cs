@@ -24,26 +24,11 @@ namespace ProjectX.MVC.Controllers
             return View(_mapper.Map<IEnumerable<TeacherViewModel>>(teachers));
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Edit(int? id)
         {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Create(TeacherViewModel teacher)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(teacher);
-            }
-            var newTeacher = _mapper.Map<Teacher>(teacher);
-            _teacherService.Create(newTeacher);
-            _teacherService.Save();
-            return RedirectToAction("Index");
-        }
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            return View(_mapper.Map<TeacherViewModel>(_teacherService.GetEntityById(id)));
+            return View(id.HasValue 
+                ? _mapper.Map<TeacherViewModel>(_teacherService.GetEntityById(id.Value)) 
+                : new TeacherViewModel());
         }
         [HttpPost]
         public IActionResult Edit(TeacherViewModel teacher)
@@ -52,8 +37,12 @@ namespace ProjectX.MVC.Controllers
             {
                 return View(teacher);
             }
-            var editTeacher = _mapper.Map<Teacher>(teacher);
-            _teacherService.Update(editTeacher);
+
+            if (teacher.Id != 0)
+                _teacherService.Update(_mapper.Map<Teacher>(teacher));
+            else
+                _teacherService.Create(_mapper.Map<Teacher>(teacher));
+
             _teacherService.Save();
             return RedirectToAction("Index");
         }

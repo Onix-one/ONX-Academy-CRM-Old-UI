@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using ProjectX.BLL.Models;
 using ProjectX.DAL.EF.Contexts;
 using ProjectX.DAL.Interfaces;
@@ -15,7 +16,7 @@ namespace ProjectX.DAL.EF.Repositories
         }
         public IEnumerable<Course> GetAll()
         {
-            return _context.Courses.ToList();
+            return _context.Courses.AsNoTracking().ToList();
         }
         public Course GetEntity(int id)
         {

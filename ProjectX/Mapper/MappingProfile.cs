@@ -11,6 +11,9 @@ namespace ProjectX.MVC.Mapper
             CreateMap<Student, StudentViewModel>().ReverseMap();
             CreateMap<Group, GroupViewModel>().ReverseMap();
             CreateMap<Teacher, TeacherViewModel>().ReverseMap();
+            CreateMap<Course, CourseViewModel>().ReverseMap();
+            CreateMap<Specialization, SpecializationViewModel>().ReverseMap();
+            CreateMap<StudentRequest, StudentRequestViewModel>().ReverseMap();
             CreateMap<Group, GroupViewModel>()
                 .ForMember(model => model.TeacherName, 
                     map => map
