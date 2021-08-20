@@ -26,49 +26,29 @@ namespace ProjectX.MVC.Controllers
             return View(_mapper.Map<IEnumerable<StudentViewModel>>(students));
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Edit(int? id)
         {
             var groupsCollection = _groupService.GetAll();
             ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Create(StudentViewModel student)
-        {
-            ModelState.Remove("GroupId");
-            ModelState.Remove("Type");
-            if (!ModelState.IsValid)
-            {
-                var groupsCollection = _groupService.GetAll();
-                ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
-                return View(student);
-            }
-            var newStudent = _mapper.Map<Student>(student);
-            _studentService.Create(newStudent);
-            _studentService.Save();
-            return RedirectToAction("Index");
-        }
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            var groupsCollection = _groupService.GetAll();
-            ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
-            return View(_mapper.Map<StudentViewModel>(_studentService.GetStudent(id)));
+
+            return View(id.HasValue 
+                ? _mapper.Map<StudentViewModel>(_studentService.GetStudent(id.Value)) 
+                : new StudentViewModel());
         }
         [HttpPost]
         public IActionResult Edit(StudentViewModel student)
         {
-       
-            ModelState.Remove("GroupId");
-            ModelState.Remove("Type");
+            var groupsCollection = _groupService.GetAll();
+            ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
+
             if (!ModelState.IsValid)
-            {
-                var groupsCollection = _groupService.GetAll();
-                ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
                 return View(student);
-            }
-            var editStudent = _mapper.Map<Student>(student);
-            _studentService.Update(editStudent);
+
+            if (student.Id != 0)
+                _studentService.Update(_mapper.Map<Student>(student));
+            else
+                _studentService.Create(_mapper.Map<Student>(student));
+
             _studentService.Save();
             return RedirectToAction("Index");
         }

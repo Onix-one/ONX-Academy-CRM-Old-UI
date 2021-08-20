@@ -9,9 +9,12 @@ namespace ProjectX.MVC.ServiceExtensions
     {
         public static IServiceCollection AddEntitiesServices(this IServiceCollection services)
         {
+            services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IEntityService<Teacher>, EntityService<Teacher>>();
-            services.AddScoped<IGroupService, GroupService>();
+            services.AddScoped<IEntityService<Course>, EntityService<Course>>();
+            services.AddScoped<IEntityService<Specialization>, EntityService<Specialization>>();
+            services.AddScoped<IEntityService<StudentRequest>, EntityService<StudentRequest>>();
             return services;
         }
     }

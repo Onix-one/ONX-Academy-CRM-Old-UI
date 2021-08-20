@@ -24,7 +24,7 @@
 
     <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Teacher</label>
     <select asp-for="TeacherId " class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref1">
-        <option selected>Choose...</option>
+        <option selected value="">Choose...</option>
         @foreach (TeacherViewModel teacher in ViewBag.Teachers)
         {
             <option value="@teacher.Id">@teacher.FullName</option>
@@ -33,7 +33,7 @@
 
     <label class="my-1 mr-2" for="inlineFormCustomSelectPref2">Status</label>
     <select asp-for="Status" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref2" novalidate>
-        <option selected>Choose...</option>
+        <option selected value="">Choose...</option>
         @foreach (var status in statusesList)
         {
             <option value="@status.Key">@status.Value</option>
@@ -44,6 +44,6 @@
         <a class="btn btn-secondary" asp-action="Index">Cancel</a>
     </div>
 </form>
-@*@section Scripts {
+@section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
-}*@
+}

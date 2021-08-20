@@ -16,7 +16,7 @@ namespace ProjectX.DAL.EF.Repositories
         }
         public IEnumerable<Student> GetAll()
         {
-            return _context.Students.Include(_=>_.Group).ToList();
+            return _context.Students.Include(_=>_.Group).AsNoTracking().ToList();
         }
         public Student GetEntity(int id)
         {

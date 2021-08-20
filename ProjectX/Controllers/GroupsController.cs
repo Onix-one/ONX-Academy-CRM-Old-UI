@@ -28,44 +28,26 @@ namespace ProjectX.MVC.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Edit(int? id)
         {
             ViewBag.Teachers = _teachersCollectionForViewModel;
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Create(GroupViewModel group)
-        {
-            ModelState.Remove("TeacherId");
-            ModelState.Remove("Status");
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Teachers = _teachersCollectionForViewModel;
-                return View(group);
-            }
-            var newGroup = _mapper.Map<Group>(group);
-            _groupService.Create(newGroup);
-            _groupService.Save();
-            return RedirectToAction("Index");
-        }
 
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            ViewBag.Teachers = _teachersCollectionForViewModel;
-            return View(_mapper.Map<GroupViewModel>(_groupService.GetGroup(id)));
+            return View(id.HasValue 
+                ? _mapper.Map<GroupViewModel>(_groupService.GetGroup(id.Value)) 
+                : new GroupViewModel());
         }
         [HttpPost]
         public IActionResult Edit(GroupViewModel group)
         {
-            ModelState.Remove("TeacherId");
-            ModelState.Remove("Status");
+            ViewBag.Teachers = _teachersCollectionForViewModel;
             if (!ModelState.IsValid)
-            {
-                ViewBag.Teachers = _teachersCollectionForViewModel;
                 return View(group);
-            }
-            _groupService.Update(_mapper.Map<Group>(group));
+           
+            if (group.Id != 0)
+                _groupService.Update(_mapper.Map<Group>(group));
+            else
+                _groupService.Create(_mapper.Map<Group>(group));
+            
             _groupService.Save();
             return RedirectToAction("Index");
         }

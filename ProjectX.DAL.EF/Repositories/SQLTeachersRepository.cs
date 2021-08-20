@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using ProjectX.BLL.Models;
 using ProjectX.DAL.EF.Contexts;
 using ProjectX.DAL.Interfaces;
@@ -15,7 +16,7 @@ namespace ProjectX.DAL.EF.Repositories
         }
         public IEnumerable<Teacher> GetAll()
         {
-            return _context.Teachers.ToList();
+            return _context.Teachers.AsNoTracking().ToList();
         }
         public Teacher GetEntity(int id)
         {
@@ -32,7 +33,7 @@ namespace ProjectX.DAL.EF.Repositories
         public void Delete(int id)
         {
             Teacher teacher = _context.Teachers.Find(id);
-            List<Group> groups = _context.Groups.ToList();
+            List<Group> groups = _context.Groups.AsNoTracking().ToList();
             foreach (var group in groups)
             {
                 if (group.TeacherId == id)

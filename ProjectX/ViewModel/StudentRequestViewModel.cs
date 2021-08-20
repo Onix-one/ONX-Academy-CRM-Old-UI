@@ -1,8 +1,9 @@
 ﻿using System;
+using ProjectX.BLL.Models;
 
-namespace ProjectX.BLL.Models
+namespace ProjectX.MVC.ViewModel
 {
-    public class StudentRequest
+    public class StudentRequestViewModel
     {
         public int Id { get; set; }
         public DateTime? Created { get; set; }
@@ -10,7 +11,7 @@ namespace ProjectX.BLL.Models
         public int? StudentId { get; set; }
         public Student Student { get; set; }
         public int? CourseId { get; set; }
-        public Course Course{ get; set; }
+        public Course Course { get; set; }
         public string? Comments { get; set; }
     }
 }
