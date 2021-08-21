@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
@@ -7,6 +8,7 @@ using ProjectX.MVC.ViewModel;
 
 namespace ProjectX.MVC.Controllers
 {
+    [Authorize]
     public class TeachersController : Controller
     {
         private readonly IEntityService<Teacher> _teacherService;
@@ -26,8 +28,8 @@ namespace ProjectX.MVC.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            return View(id.HasValue 
-                ? _mapper.Map<TeacherViewModel>(_teacherService.GetEntityById(id.Value)) 
+            return View(id.HasValue
+                ? _mapper.Map<TeacherViewModel>(_teacherService.GetEntityById(id.Value))
                 : new TeacherViewModel());
         }
         [HttpPost]

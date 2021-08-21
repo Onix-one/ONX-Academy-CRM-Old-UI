@@ -24,7 +24,6 @@ namespace ProjectX.WebAPI
         {
 
             services.AddControllers();
-            services.AddScoped<IStudentService, StudentService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectX.WebAPI", Version = "v1" });
