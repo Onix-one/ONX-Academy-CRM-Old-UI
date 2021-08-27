@@ -11,10 +11,13 @@ namespace ProjectX.MVC.ViewModel
         [Required(ErrorMessage = "This field cannot be empty")]
         public string Number { get; set; }
         public int? TeacherId { get; set; }
-        public string TeacherName { get; set; }
+        public TeacherViewModel Teacher { get; set; }
+        public int? CourseId { get; set; }
+        public CourseViewModel Course { get; set; }
         public List<StudentViewModel> Students { get; set; }
         [Required(ErrorMessage = "This field cannot be empty")]
         public DateTime StartDate { get; set; }
         public GroupStatus? Status { get; set; }
+        public string TeacherName { get; set; }
     }
 }

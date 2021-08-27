@@ -6,58 +6,79 @@
     <title>@ViewData["Title"] - ProjectX</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="~/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/assets/css/Article-Clean.css">
+    <link rel="stylesheet" href="~/assets/css/Article-List.css">
+    <link rel="stylesheet" href="~/assets/css/Features-Boxed.css">
+    <link rel="stylesheet" href="~/assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="~/assets/css/Highlight-Blue.css">
+    <link rel="stylesheet" href="~/assets/css/Highlight-Clean.css">
+    <link rel="stylesheet" href="~/assets/css/Highlight-Phone.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
+    <link rel="stylesheet" href="~/assets/css/Projects-Horizontal.css">
+    <link rel="stylesheet" href="~/assets/css/Simple-Slider.css">
+    <link rel="stylesheet" href="~/assets/css/untitled.css">
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ProjectX</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Specializations" asp-action="Index">Specializations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Courses" asp-action="Index">Courses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Requests" asp-action="Index">Requests</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Groups" asp-action="Index">Groups</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Teachers" asp-action="Index">Teachers</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-light navbar-expand sticky-top bg-secondary align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background-color: rgb(8,8,10);">
+            <div class="container-fluid d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" asp-area="" asp-controller="Home" asp-action="Index">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-cat"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span class="d-xl-flex justify-content-xl-center">ProjectX</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i><span>Home</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Specializations" asp-action="Index"><i class="fas fa-graduation-cap"></i><span>Specializations<br></span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Requests" asp-action="Index"><i class="fas fa-child"></i><span>Requests<br></span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Groups" asp-action="Index"><i class="fas fa-object-group"></i><span>Groups</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Students" asp-action="Index"><i class="fas fa-exclamation-circle"></i><span>Students</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Teachers" asp-action="Index"><i class="fas fa-exclamation-circle"></i><span>Teachers</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline">
+                    <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid">
+                        <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group">
+                                <input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                            </div>
+                        </form>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </nav>
+                <div class="container-fluid align-items-center">
+                    <main role="main" class="pb-3">
+                        <div class="row justify-content-center">
+                            @RenderBody()
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - ProjectX - <a asp-area="" asp-controller="Home" asp-action="Index">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+    <script src="~/assets/js/Simple-Slider.js"></script>
+    <script src="~/assets/js/theme.js"></script>
+    <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/bs-init.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

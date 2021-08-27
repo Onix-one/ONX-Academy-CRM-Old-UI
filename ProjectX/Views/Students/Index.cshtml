@@ -1,53 +1,62 @@
 ﻿@using ProjectX.MVC.ViewModel
+
 @model IEnumerable<StudentViewModel>
-<h1>List of Students</h1>
-<table class="table table-bordered">
-    <tr>
-        <th>ID</th>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Group Number</th>
-        <th>Type of Training</th>
-    </tr>
-    @foreach (var student in Model)
-    {
-<tr>
-    <td>@student.Id</td>
-    <td>@student.LastName</td>
-    <td>@student.FirstName</td>
-    <td>@student.Email</td>
-    <td>@student.Phone</td>
 
-    @if (student.GroupId != null)
-    {
-        <td>@student.Group.Number</td>
-    }
-    else
-    {
-        <td></td>
-    }
+<div class="container-fluid" data-aos="fade-down" data-aos-duration="600">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h2 class="text-center m-0 font-weight-bold">Students Info</h2>
+        </div>
+        <a asp-controller="Students" asp-action="Edit" class="btn btn-success">Add new student</a>
+        <div class="card-body">
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Group Number</th>
+                        <th>Type of Training</th>
+                    </tr>
+                    @foreach (var student in Model)
+                    {
+                        <tr>
+                            <td>@student.Id</td>
+                            <td>@student.LastName</td>
+                            <td>@student.FirstName</td>
+                            <td>@student.Email</td>
+                            <td>@student.Phone</td>
 
-    <td>@student.Type.ToString()</td>
-    <td>
-        <a asp-controller="Students" asp-action="Edit" asp-route-Id="@student.Id"
-           class="btn btn-outline-primary">
-            Edit
-        </a>
-    </td>
-    <td>
-        <form asp-action="Delete" method="post">
-            <input type="hidden" name="id" value="@student.Id" />
-            <button type="submit" class="btn btn-outline-danger">Delete</button>
-        </form>
-    </td>
-</tr>
-    }
-    <tr>
-        <td>
-            <div class="text-info">Total: @Model.Count()</div>
-        </td>
-    </tr>
-</table>
-<a class="btn btn-success" asp-controller="Students" asp-action="Edit">Add new student</a>
+                            @if (student.GroupId != null)
+                            {
+                                <td>@student.Group.Number</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+
+                            <td>@student.Type.ToString()</td>
+                            <td>
+                                <a asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id" class="btn btn-outline-primary">Edit</a>
+                            </td>
+                            <td>
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@student.Id" />
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                            <div class="text-info">Total: @Model.Count()</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,44 +6,69 @@
         [1] = "Started",
         [2] = "Finished"
     };
+
 }
 @model GroupViewModel
-<h2 class="text-center">Edit group</h2>
-<form asp-action="Edit" method="post">
-    <div class="form-group">
-        <label asp-for="Number"></label>
-        <input asp-for="Number" class="form-control" />
-        <span class="alert-danger" asp-validation-for="Number"></span>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="StartDate"></label>
-        <input asp-for="StartDate" class="form-control" />
-        <span class="alert-danger" asp-validation-for="StartDate"></span>
-    </div>
+<div class="row align-items-center" >
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h2 class="text-center m-0 font-weight-bold">Edit group</h2>
+            <form asp-action="Edit" method="post">
+                <div>
+                    <div class="form-group" style="width: 480px">
+                        <label asp-for="Number"></label>
+                        <input asp-for="Number" class="form-control" />
+                        <span class="alert-danger" asp-validation-for="Number"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate"></label>
+                        <input asp-for="StartDate" id="hire-date" class="form-control" type="date">
+                        <span class="alert-danger" asp-validation-for="StartDate"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Course</label>
+                        <select asp-for="CourseId" class="form-control" id="inlineFormCustomSelectPref1">
+                            <option selected value="">Choose...</option>
+                            @foreach (CourseViewModel course in ViewBag.Courses)
+                            {
+                                <option value="@course.Id">@course.Title</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Teacher</label>
+                        <select asp-for="TeacherId" class="form-control" id="inlineFormCustomSelectPref1">
+                            <option selected value="">Choose...</option>
+                            @foreach (TeacherViewModel teacher in ViewBag.Teachers)
+                            {
+                                <option value="@teacher.Id">@teacher.FullName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref2">Status</label>
+                        <select asp-for="Status" class="form-control" id="inlineFormCustomSelectPref2" novalidate>
+                            <option selected value="">Choose...</option>
+                            @foreach (var status in statusesList)
+                            {
+                                <option value="@status.Key">@status.Value</option>
+                            }
+                        </select>
+                    </div>
 
-    <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Teacher</label>
-    <select asp-for="TeacherId " class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref1">
-        <option selected value="">Choose...</option>
-        @foreach (TeacherViewModel teacher in ViewBag.Teachers)
-        {
-            <option value="@teacher.Id">@teacher.FullName</option>
-        }
-    </select>
-
-    <label class="my-1 mr-2" for="inlineFormCustomSelectPref2">Status</label>
-    <select asp-for="Status" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref2" novalidate>
-        <option selected value="">Choose...</option>
-        @foreach (var status in statusesList)
-        {
-            <option value="@status.Key">@status.Value</option>
-        }
-    </select>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Save</button>
-        <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        <a class="btn btn-secondary" area-hidden="true" asp-action="Index">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
-@section Scripts {
+</div>
+
+
+@section Scripts
+{
     @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
 }

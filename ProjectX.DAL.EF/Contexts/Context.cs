@@ -6,6 +6,14 @@ namespace ProjectX.DAL.EF.Contexts
 {
     public class Context : IdentityDbContext
     {
+        private  Context _context;
+        public  Context NewContext()
+        {
+            if (_context == null) { _context = new Context(); }
+            return _context;
+        }
+
+
         public DbSet<Student> Students { get; set; }/* = default;*/
         public DbSet<Group> Groups { get; set; } = default;
         public DbSet<Teacher> Teachers { get; set; } = default;
@@ -17,11 +25,10 @@ namespace ProjectX.DAL.EF.Contexts
         public Context(DbContextOptions<Context> options) : base(options){}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Student>()
-                .HasOne(b => b.Group)
-                .WithMany(i => i.Students)
-                .HasForeignKey(b => b.GroupId);
+
+
         }
     }
 }

@@ -14,6 +14,12 @@ namespace ProjectX.DAL.EF.Repositories
         {
             _context = context;
         }
+
+        public SqlStudentsRepository()
+        {
+            
+        }
+
         public IEnumerable<Student> GetAll()
         {
             return _context.Students.Include(_=>_.Group).AsNoTracking().ToList();

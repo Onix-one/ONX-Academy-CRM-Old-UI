@@ -1,1 +1,32 @@
-﻿
+﻿@using ProjectX.MVC.ViewModel
+@{ var counter = 0; const int numberOfColumns = 3; }
+
+@model List<SpecializationViewModel>
+
+<body id="page-top">
+   <div class="container" data-aos="fade-down" data-aos-duration="600">
+       @while (counter < Model.Count())
+        {
+           <div class="card-group text-center">
+               @while (counter < Model.Count())
+                {
+                  <div class="card">
+                     <img class="img-fluid" src="@Url.Content($"~/assets/img/{Model[counter].PNGName}")"/>
+                         <div class="card-body">
+                              <a class="btn btn-outline-primary" role="button"
+                                     asp-area="" asp-controller="Courses" 
+                                     asp-action="Index"
+                                     asp-route-id="@Model[counter].Id">@Model[counter].Title<br>
+                              </a>
+                         </div>
+                  </div>
+                  counter++;
+                  if (counter%numberOfColumns == 0)
+                  {
+                      break;
+                  }
+                }
+           </div>
+        }
+   </div>
+</body>
