@@ -1,3 +1,6 @@
+using System;
+using System.Threading.Tasks;
+using AcademyCRM.MVC.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -5,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using ProjectX.DAL.EF.Contexts;
 using ProjectX.MVC.ServiceExtensions;
 
@@ -13,6 +17,7 @@ namespace ProjectX.MVC
     public class Startup
     {
         private IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,8 +38,16 @@ namespace ProjectX.MVC
             services.AddRepositories();
             services.AddEntitiesServices();
             services.AddControllersWithViews();
+
+            services.AddControllersWithViews()
+                .AddViewOptions(options => options.HtmlHelperOptions.ClientValidationEnabled = true);
+
+            services.Configure<SecurityOptions>(
+                Configuration.GetSection(SecurityOptions.SectionTitle));
         }
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider,
+            IOptions<SecurityOptions> securityOptions)
         {
             if (env.IsDevelopment())
             {
@@ -59,6 +72,30 @@ namespace ProjectX.MVC
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+            CreateRoles(serviceProvider, securityOptions).Wait();
+            //app.UseStatusCodePages("text/plain", "Error. Code: {0}");
+        }
+
+        private async Task CreateRoles(IServiceProvider serviceProvider, IOptions<SecurityOptions> securityOptions)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            await roleManager.CreateAsync(new IdentityRole
+            {
+                Name = "manager",
+                NormalizedName = "MANAGER"
+            });
+
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+
+            var manager = await userManager.FindByEmailAsync(securityOptions.Value.ManagerUserEmail);
+
+            if (manager != null)
+            {
+                await userManager.AddToRoleAsync(manager, "MANAGER");
+            }
         }
     }
 }
+

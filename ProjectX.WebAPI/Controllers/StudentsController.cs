@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using ProjectX.BLL.Interfaces;
-using ProjectX.BLL.Models;
+using ProjectX.WebAPI.Dto;
+using ProjectX.WebAPI.Model;
 
 namespace ProjectX.WebAPI.Controllers
 {
@@ -10,14 +13,30 @@ namespace ProjectX.WebAPI.Controllers
     public class StudentsController : ControllerBase
     {
         private readonly IStudentService _studentService;
-        public StudentsController(IStudentService studentService)
+        private readonly IMapper _mapper;
+        public StudentsController(IStudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
+            _mapper = mapper;
         }
         [HttpGet]
-        public IEnumerable<Student> GetAll()
+        public List<StudentsDto> GetStudents()
         {
-            var students = _studentService.GetAll();
+            var students = _mapper.Map<IEnumerable<StudentModel>>(_studentService.GetAll())
+                .Select(_ => 
+                new StudentsDto
+                {
+                    Id = _.Id,
+                    FirstName = _.FirstName,
+                    LastName = _.LastName,
+                    Email = _.Email,
+                    Phone = _.Phone,
+                    GroupId = _.GroupId,
+                    GroupNumber = _.Group.Number,
+                    CourseId = _.Group.CourseId,
+                    CourseTitle = _.Group.Course.Title,
+                    Type = _.Type
+                }).ToList();
             return students;
         }
     }

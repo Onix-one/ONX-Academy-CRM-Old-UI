@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
@@ -8,6 +9,7 @@ using ProjectX.MVC.ViewModel;
 
 namespace ProjectX.MVC.Controllers
 {
+    [Authorize(Roles = "manager")]
     public class GroupsController : Controller
     {
         private readonly IGroupService _groupService;
@@ -18,6 +20,7 @@ namespace ProjectX.MVC.Controllers
         {
             _mapper = mapper;
             _groupService = groupService;
+
             var teachersCollection = teacherService.GetAll();
             var coursesCollection = courseService.GetAll();
             _teachersCollectionForViewModel = _mapper.Map<IEnumerable<TeacherViewModel>>(teachersCollection);
@@ -26,6 +29,7 @@ namespace ProjectX.MVC.Controllers
 
         public IActionResult Index()
         {
+
             var groups = _groupService.GetAll();
             ViewData["Groups"] = _mapper.Map<IEnumerable<GroupViewModel>>(groups);
             return View();

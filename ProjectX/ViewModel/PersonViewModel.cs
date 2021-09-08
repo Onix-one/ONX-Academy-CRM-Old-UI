@@ -2,7 +2,7 @@
 
 namespace ProjectX.MVC.ViewModel
 {
-    public class PersonVeiwModel
+    public class PersonViewModel
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "This field cannot be empty")]

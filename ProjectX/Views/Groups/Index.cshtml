@@ -5,7 +5,7 @@
 }
 @model GroupViewModel
 
-<div class="container-fluid" data-aos="fade-down" data-aos-duration="600">
+<div class="container-fluid widthInfoCard" data-aos="fade-down" data-aos-duration="600">
     <div class="card shadow">
         <div class="card-header py-3">
             <h2 class="text-center m-0 font-weight-bold">Groups Info</h2>
@@ -27,37 +27,40 @@
                     <tbody>
                         @foreach (var group in groups)
                         {
-                            <tr>
-                                <td>@group.Id</td>
-                                <td>@group.Number</td>
-                                @if (group.CourseId != null)
-                                {
-                                    <td>@group.Course.Title</td>
-                                }
-                                else
-                                {
-                                    <td></td>
-                                }
-                                @if (group.TeacherName != null)
-                                {
-                                    <td>@group.TeacherName</td>
-                                }
-                                else
-                                {
-                                    <td></td>
-                                }
-                                <td>@group.StartDate.Day.@group.StartDate.Month.@group.StartDate.Year</td>
-                                <td>@group.Status.ToString()</td>
-                                <td>
-                                    <a asp-controller="Groups" asp-action ="Edit" asp-route-id="@group.Id" class="btn btn-outline-primary">Edit</a>
-                                </td>
-                                <td>
-                                    <form asp-action="Delete" method="post">
-                                        <input type="hidden" name="id" value="@group.Id" />
-                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>@group.Id</td>
+                            <td>@group.Number</td>
+                            @if (group.CourseId != null)
+                            {
+                                <td>@group.Course.Title</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            @if (group.TeacherName != null)
+                            {
+                                <td>@group.TeacherName</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td>@group.StartDate.Day.@group.StartDate.Month.@group.StartDate.Year</td>
+                            <td>@group.Status.ToString()</td>
+                            <td>
+                                <a asp-controller="Students" asp-action="Index" asp-route-id="@group.Id" class="btn btn-outline-info">View</a>
+                            </td>
+                            <td>
+                                <a asp-controller="Groups" asp-action="Edit" asp-route-id="@group.Id" class="btn btn-outline-primary">Edit</a>
+                            </td>
+                            <td>
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@group.Id" />
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                     <tfoot>

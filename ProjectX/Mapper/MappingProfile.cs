@@ -8,8 +8,8 @@ namespace ProjectX.MVC.Mapper
     {
         public MappingProfile()
         {
+            CreateMap<Person, PersonViewModel>().ReverseMap();
             CreateMap<Student, StudentViewModel>().ReverseMap();
-            CreateMap<Group, GroupViewModel>().ReverseMap();
             CreateMap<Teacher, TeacherViewModel>().ReverseMap();
             CreateMap<Course, CourseViewModel>().ReverseMap();
             CreateMap<Specialization, SpecializationViewModel>().ReverseMap();

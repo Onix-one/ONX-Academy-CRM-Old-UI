@@ -11,20 +11,15 @@
 @model GroupViewModel
 
 <div class="row align-items-center" >
-    <div class="card shadow">
-        <div class="card-header py-3">
+    <div class="card shadow widthEditCard" >
+        <div class="card-header  py-3">
             <h2 class="text-center m-0 font-weight-bold">Edit group</h2>
             <form asp-action="Edit" method="post">
                 <div>
-                    <div class="form-group" style="width: 480px">
+                    <div class="form-group">
                         <label asp-for="Number"></label>
                         <input asp-for="Number" class="form-control" />
                         <span class="alert-danger" asp-validation-for="Number"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="StartDate"></label>
-                        <input asp-for="StartDate" id="hire-date" class="form-control" type="date">
-                        <span class="alert-danger" asp-validation-for="StartDate"></span>
                     </div>
                     <div class="form-group">
                         <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Course</label>
@@ -47,6 +42,10 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label asp-for="StartDate"></label>
+                        <input asp-for="StartDate" id="hire-date" class="form-control" type="date">
+                    </div>
+                    <div class="form-group">
                         <label class="my-1 mr-2" for="inlineFormCustomSelectPref2">Status</label>
                         <select asp-for="Status" class="form-control" id="inlineFormCustomSelectPref2" novalidate>
                             <option selected value="">Choose...</option>
@@ -56,7 +55,6 @@
                             }
                         </select>
                     </div>
-
                     <div class="text-center">
                         <button class="btn btn-primary" type="submit">Save</button>
                         <a class="btn btn-secondary" area-hidden="true" asp-action="Index">Cancel</a>
@@ -66,8 +64,6 @@
         </div>
     </div>
 </div>
-
-
 @section Scripts
 {
     @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")

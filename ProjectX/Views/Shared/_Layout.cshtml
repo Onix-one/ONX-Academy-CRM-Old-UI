@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Identity
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,8 +23,9 @@
     <link rel="stylesheet" href="~/assets/css/Projects-Horizontal.css">
     <link rel="stylesheet" href="~/assets/css/Simple-Slider.css">
     <link rel="stylesheet" href="~/assets/css/untitled.css">
+
 </head>
-<body id="page-top">
+<body>
     <div id="wrapper">
         <nav class="navbar navbar-light navbar-expand sticky-top bg-secondary align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background-color: rgb(8,8,10);">
             <div class="container-fluid d-flex flex-column p-0">
@@ -33,12 +35,48 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i><span>Home</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Specializations" asp-action="Index"><i class="fas fa-graduation-cap"></i><span>Specializations<br></span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Requests" asp-action="Index"><i class="fas fa-child"></i><span>Requests<br></span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Groups" asp-action="Index"><i class="fas fa-object-group"></i><span>Groups</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Students" asp-action="Index"><i class="fas fa-exclamation-circle"></i><span>Students</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" asp-area="" asp-controller="Teachers" asp-action="Index"><i class="fas fa-exclamation-circle"></i><span>Teachers</span></a></li>
+                    @if (!User.IsInRole("manager"))
+                    {
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home"></i><span>Home</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-area="" asp-controller="Specializations" asp-action="Index">
+                                <i class="fas fa-graduation-cap"></i><span>Specializations<br></span>
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-area="" asp-controller="Teachers" asp-action="Index">
+                                <i class="fas fa-exclamation-circle"></i><span>Teachers</span>
+                            </a>
+                        </li>
+                    }
+                    @if (User.IsInRole("manager"))
+                    {
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-area="" asp-controller="Requests" asp-action="Index">
+                                <i class="fas fa-child"></i><span>Requests<br></span>
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-area="" asp-controller="Groups" asp-action="Index">
+                                <i class="fas fa-object-group"></i><span>Groups</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-area="" asp-controller="Students" asp-action="Index">
+                                <i class="fas fa-exclamation-circle"></i><span>Students</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" asp-area="" asp-controller="Teachers" asp-action="Index">
+                                <i class="fas fa-exclamation-circle"></i><span>Teachers</span>
+                            </a>
+                        </li>
+                    }
                 </ul>
                 <div class="text-center d-none d-md-inline">
                     <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>

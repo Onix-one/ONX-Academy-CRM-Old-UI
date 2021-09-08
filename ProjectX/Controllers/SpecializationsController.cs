@@ -18,7 +18,6 @@ namespace ProjectX.MVC.Controllers
             _specializationService = specializationService;
             _mapper = mapper;
         }
-
         public IActionResult Index()
         {
             var specializations = _specializationService.GetAll();

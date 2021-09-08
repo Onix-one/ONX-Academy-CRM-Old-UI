@@ -242,6 +242,93 @@ namespace ProjectX.DAL.EF.Migrations
                     b.HasIndex("SpecializationId");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 7,
+                            Cost = 360m,
+                            Description = "HTML & CSS are two fundamental technologies that every web developer must master. HTML (Hypertext Markup Language) is responsible for the skeleton of a web page: the presence of text, images, tables, buttons, information filling forms and other elements of the user interface. CSS (Cascading Styles Sheet) allows you to transform the appearance of the site into a human-readable form. Knowing only these two technologies will already give you the opportunity to create effective and attractive web pages.",
+                            SpecializationId = 1,
+                            Title = "HTML5/CSS3"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Cost = 800m,
+                            Description = "JavaScript is one of the most popular programming languages. You can't do without his knowledge in web development. In addition to the implementation of custom logic (FrontEnd), it is used in the development of server (BackEnd), game and mobile applications, to create scripts for test automation, and more. Learning JS is a good investment in the future, as the language will be useful for solving various problems and will be useful in any area of development.",
+                            NecessaryPreKnowledge = "\"HTML & CSS\" course",
+                            SpecializationId = 1,
+                            Title = "JavaScript"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Cost = 1200m,
+                            Description = "Angular Developer is a front-end web application (FrontEnd) developer who uses Google's Angular as a framework to write efficient Single Page Applications (SPA) with a consistent interface. The web services Gmail, Forbes, Upwork, PayPal, Weather.com and many others have been built with Angular.Our training program is aimed at learning all the necessary tools for a successful start in this direction.",
+                            NecessaryPreKnowledge = "\"JavaScript\" course",
+                            SpecializationId = 1,
+                            Title = "Angular"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Cost = 1400m,
+                            Description = "C # (si sharp) is an object-oriented programming language developed by Microsoft. The direct interest of such a large corporation in the language ensures that it continues to evolve and find applications in various industries. C Sharp has absorbed the best qualities, and also inherited the features of the syntax of Java and C ++. The language is used for web development, desktop and mobile applications. If you signed up for a course on C # in Minsk in order to learn how to create web projects, then in the future you need to master the .NET toolkit. Thanks to the huge amount of documentation, C # is quite easy to learn. And its own development environment Visual Studio, ready-made templates, modules, procedures make the language comfortable to use. After completing the basic course \"Programming in C #\", you can choose a direction for further development - to.",
+                            SpecializationId = 2,
+                            Title = "Programming on C#"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Cost = 1900m,
+                            Description = "ASP.NET is a Microsoft technology for creating websites, web services and applications. Due to its reliability, security and flexibility, it is actively used by large companies. The technology's standard libraries contain many modules, templates and procedures, which makes it convenient for developing and supporting large-scale projects. It is quite difficult to study ASP.NET in courses in Minsk, but those who cope with this task will have one of the highest salaries in the IT sphere.",
+                            NecessaryPreKnowledge = "\"C # programming\" course",
+                            SpecializationId = 2,
+                            Title = "Industrial programming with ASP.NET"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Cost = 1400m,
+                            Description = "Java is a language that has not left all kinds of TOPs of popular programming languages for many years. With its help, various software solutions are created: from computer games and mobile applications for Android to software for banking systems and cloud storage. Reliability, power, efficiency and multi - platform are the main hallmarks of Java. If you want to work with a classic tool that can handle any task - Java is for you.",
+                            SpecializationId = 3,
+                            Title = "Industrial software development on Java"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Cost = 1900m,
+                            Description = "Java is a general-purpose programming language that is suitable for many tasks and can handle a variety of challenges. Do you want to learn how to use it effectively? Sign up for a Java web development course in Minsk. The program was created by the largest software developer EPAM Systems. Certified graduates of the course will receive an invitation to the EPAM Java lab to further move along the path of employment with the company.",
+                            NecessaryPreKnowledge = "\"Industrial software development on Java\"  course",
+                            SpecializationId = 3,
+                            Title = "Java Web Development"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Cost = 1400m,
+                            Description = "C # (si sharp) is an object-oriented programming language developed by Microsoft. The direct interest of such a large corporation in the language ensures that it continues to evolve and find applications in various industries. C Sharp has absorbed the best qualities, and also inherited the features of the syntax of Java and C ++. The language is used for web development, desktop and mobile applications. If you signed up for a course on C # in Minsk in order to learn how to create web projects, then in the future you need to master the .NET toolkit. Thanks to the huge amount of documentation, C # is quite easy to learn. And its own development environment Visual Studio, ready-made templates, modules, procedures make the language comfortable to use. After completing the basic course \"Programming in C #\", you can choose a direction for further development - to.",
+                            SpecializationId = 4,
+                            Title = "Programming on C#"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Cost = 1600m,
+                            Description = "Unity is a modern game engine that allows you to create projects of any level. Deus Ex: The Fall, Assassin's Creed: Identity, Wasteland 2, HearthStone and thousands of other games are based on it. Thanks to the low entry threshold and the C # language, anyone can release the first game mechanics in a short time. The course \"Development of mobile games on the Unity engine\" in Minsk will allow you to realize your creative abilities in the field of creating games, master an interesting profession and find a job. During the learning process, students will create several prototypes of games and their own project.",
+                            NecessaryPreKnowledge = "\"C # programming\" course",
+                            SpecializationId = 4,
+                            Title = "Development of mobile games on the Unity engine"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Cost = 990m,
+                            Description = "Working with relational databases and being able to write effective queries in SQL are important hard skills for many IT professionals. They are especially needed for those who want to build a successful career in the field of high technology as a back-end developer or move in the direction of Business Intelligence and data analytics. A course on relational databases and SQL in Minsk will help you get the necessary skills. The training program is developed by an IT company.",
+                            SpecializationId = 5,
+                            Title = "Relational databases and SQL"
+                        });
                 });
 
             modelBuilder.Entity("ProjectX.BLL.Models.Group", b =>
@@ -257,7 +344,7 @@ namespace ProjectX.DAL.EF.Migrations
                     b.Property<string>("Number")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("Status")
@@ -273,6 +360,35 @@ namespace ProjectX.DAL.EF.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Groups");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CourseId = 15,
+                            Number = "MR00-0012-FT04",
+                            StartDate = new DateTime(2021, 11, 1, 19, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            TeacherId = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CourseId = 11,
+                            Number = "MR00-5512-DT12",
+                            StartDate = new DateTime(2021, 12, 9, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = 0,
+                            TeacherId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CourseId = 10,
+                            Number = "MR00-2671-FG10",
+                            StartDate = new DateTime(2021, 9, 30, 19, 30, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            TeacherId = 1
+                        });
                 });
 
             modelBuilder.Entity("ProjectX.BLL.Models.Specialization", b =>
@@ -294,6 +410,44 @@ namespace ProjectX.DAL.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specializations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PNGName = "frontend-developer.png",
+                            Title = "Frontend Developer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            PNGName = "net-developer.png",
+                            Title = ".NET Developer"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            PNGName = "java-developer.png",
+                            Title = "Java Developer"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            PNGName = "game-developer.png",
+                            Title = "Unity Developer"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            PNGName = "database-developer.png",
+                            Title = "Database Developer"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            PNGName = "ios-developer.png",
+                            Title = "iOS Developer"
+                        });
                 });
 
             modelBuilder.Entity("ProjectX.BLL.Models.Student", b =>
@@ -302,9 +456,6 @@ namespace ProjectX.DAL.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Age")
-                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -329,6 +480,308 @@ namespace ProjectX.DAL.EF.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "Lazarev0981@gmail.com",
+                            FirstName = "Николай",
+                            GroupId = 3,
+                            LastName = "Лазарев",
+                            Phone = "+375441188801",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "Medvedev1990@gmail.com",
+                            FirstName = "Егор",
+                            GroupId = 3,
+                            LastName = "Медведев",
+                            Phone = "+375441188802",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "Ershov9512@gmail.com",
+                            FirstName = "Александр",
+                            GroupId = 3,
+                            LastName = "Ершов",
+                            Phone = "+375441188803",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Email = "Nikitin01@gmail.com",
+                            FirstName = "Роман",
+                            GroupId = 3,
+                            LastName = "Никитин",
+                            Phone = "+375441188804",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Email = "Sobolev11@gmail.com",
+                            FirstName = "Сергей",
+                            GroupId = 3,
+                            LastName = "Соболев",
+                            Phone = "+375441188805",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Email = "Ryabov903@gmail.com",
+                            FirstName = "Анна",
+                            GroupId = 3,
+                            LastName = "Рябова",
+                            Phone = "+375441188806",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Email = "Polyakov99@gmail.com",
+                            FirstName = "Алексей",
+                            GroupId = 3,
+                            LastName = "Поляков",
+                            Phone = "+375441188807",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Email = "Cvetkova41@gmail.com",
+                            FirstName = "Надежда",
+                            GroupId = 3,
+                            LastName = "Цветкова",
+                            Phone = "+375441188808",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Email = "Danilova355@gmail.com",
+                            FirstName = "Виктория",
+                            GroupId = 3,
+                            LastName = "Данилова",
+                            Phone = "+375441188809",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Email = "Jukov07@gmail.com",
+                            FirstName = "Антон",
+                            GroupId = 3,
+                            LastName = "Жуков",
+                            Phone = "+375441188810",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Email = "Frolov855@gmail.com",
+                            FirstName = "Геннадий",
+                            GroupId = 3,
+                            LastName = "Фролов",
+                            Phone = "+375441188811",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Email = "Lapin0110@gmail.com",
+                            FirstName = "Виктор",
+                            GroupId = 3,
+                            LastName = "Лапин",
+                            Phone = "+375441188812",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Email = "Juravliov43@gmail.com",
+                            FirstName = "Светлана",
+                            GroupId = 3,
+                            LastName = "Журавлёва",
+                            Phone = "+375441188813",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Email = "Nikolayev61@gmail.com",
+                            FirstName = "Роман",
+                            GroupId = 3,
+                            LastName = "Николаев",
+                            Phone = "+375441188814",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Email = "Krylov96@gmail.com",
+                            FirstName = "Сергей",
+                            GroupId = 3,
+                            LastName = "Крылов",
+                            Phone = "+375441188815",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Email = "Maksimov77@gmail.com",
+                            FirstName = "Максим",
+                            GroupId = 3,
+                            LastName = "Максимов",
+                            Phone = "+375441188816",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Email = "Sidorov610@gmail.com",
+                            FirstName = "Егор",
+                            GroupId = 3,
+                            LastName = "Сидоров",
+                            Phone = "+375441188817",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Email = "Osipov0990@gmail.com",
+                            FirstName = "Александр",
+                            GroupId = 3,
+                            LastName = "Осипов",
+                            Phone = "+375441188818",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Email = "Belousov78@gmail.com",
+                            FirstName = "Евгений",
+                            GroupId = 3,
+                            LastName = "Белоусов",
+                            Phone = "+375441188819",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Email = "Fedotov88@gmail.com",
+                            FirstName = "Андрей",
+                            GroupId = 3,
+                            LastName = "Федотов",
+                            Phone = "+375441188820",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Email = "Dorofeyev45@gmail.com",
+                            FirstName = "Виталий",
+                            GroupId = 1,
+                            LastName = "Дорофеев",
+                            Phone = "+375441188821",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Email = "Egorov212@gmail.com",
+                            FirstName = "Василий",
+                            GroupId = 1,
+                            LastName = "Егоров",
+                            Phone = "+375441188822",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Email = "Matveyev67@gmail.com",
+                            FirstName = "Владислав",
+                            GroupId = 1,
+                            LastName = "Матвеев",
+                            Phone = "+375441188823",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Email = "Bobrova72@gmail.com",
+                            FirstName = "Анастасия",
+                            GroupId = 1,
+                            LastName = "Боброва",
+                            Phone = "+375441188824",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Email = "Dmitrieva1221@gmail.com",
+                            FirstName = "Наталья",
+                            GroupId = 1,
+                            LastName = "Дмитриева",
+                            Phone = "+375441188825",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Email = "Kalinin45@gmail.com",
+                            FirstName = "Сергей",
+                            GroupId = 2,
+                            LastName = "Калинин",
+                            Phone = "+375441188826",
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Email = "Anisimov987@gmail.com",
+                            FirstName = "Алексей",
+                            GroupId = 2,
+                            LastName = "Анисимов",
+                            Phone = "+375441188827",
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Email = "Antonov543@gmail.com",
+                            FirstName = "Александр",
+                            GroupId = 2,
+                            LastName = "Антонов",
+                            Phone = "+375441188828",
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Email = "Sokolova1212@gmail.com",
+                            FirstName = "Екатерина",
+                            GroupId = 2,
+                            LastName = "Соколова",
+                            Phone = "+375441188829",
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Email = "Timofeev22@gmail.com",
+                            FirstName = "Виталий",
+                            GroupId = 2,
+                            LastName = "Тимофеев",
+                            Phone = "+375441188830",
+                            Type = 2
+                        });
                 });
 
             modelBuilder.Entity("ProjectX.BLL.Models.StudentRequest", b =>
@@ -347,16 +800,148 @@ namespace ProjectX.DAL.EF.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StudentId")
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("StudentId");
-
                     b.ToTable("StudentRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Comments = "",
+                            CourseId = 11,
+                            Created = new DateTime(2021, 7, 15, 13, 17, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Nesterov23@gmail.com",
+                            FirstName = "Андрей",
+                            LastName = "Нестеров",
+                            Phone = "+375441188132",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Comments = "",
+                            CourseId = 11,
+                            Created = new DateTime(2021, 7, 23, 20, 57, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Haritonov432@gmail.com",
+                            FirstName = "Роман",
+                            LastName = "Харитонов",
+                            Phone = "+375441188365",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Comments = "",
+                            CourseId = 11,
+                            Created = new DateTime(2021, 8, 23, 8, 13, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Agafonov440@gmail.com",
+                            FirstName = "Аркадий",
+                            LastName = "Агафонов",
+                            Phone = "+375441145830",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Comments = "",
+                            CourseId = 11,
+                            Created = new DateTime(2021, 9, 4, 23, 15, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Muraviov438@gmail.com",
+                            FirstName = "Алексей",
+                            LastName = "Муравьёв",
+                            Phone = "+375441185430",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Comments = "",
+                            CourseId = 11,
+                            Created = new DateTime(2021, 7, 27, 20, 5, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Larionova85@gmail.com",
+                            FirstName = "Ангелина",
+                            LastName = "Ларионова",
+                            Phone = "+375441348830",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Comments = "",
+                            CourseId = 15,
+                            Created = new DateTime(2021, 8, 15, 19, 44, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Fedoseyev86@gmail.com",
+                            FirstName = "Денис",
+                            LastName = "Федосеев",
+                            Phone = "+375441675830",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Comments = "",
+                            CourseId = 15,
+                            Created = new DateTime(2021, 9, 3, 22, 36, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Zimin984@gmail.com",
+                            FirstName = "Николай",
+                            LastName = "Зимин",
+                            Phone = "+375441186730",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Comments = "",
+                            CourseId = 15,
+                            Created = new DateTime(2021, 8, 20, 21, 17, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Pahomov43@gmail.com",
+                            FirstName = "Максим",
+                            LastName = "Пахомов",
+                            Phone = "+375441188554",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Comments = "",
+                            CourseId = 15,
+                            Created = new DateTime(2021, 8, 3, 15, 35, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Shubin69@gmail.com",
+                            FirstName = "Геннадий",
+                            LastName = "Шубин",
+                            Phone = "+375441188896",
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Comments = "",
+                            CourseId = 15,
+                            Created = new DateTime(2021, 9, 1, 3, 40, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Ignatova38@gmail.com",
+                            FirstName = "Екатерина",
+                            LastName = "Игнатова",
+                            Phone = "+375441183830",
+                            Type = 0
+                        });
                 });
 
             modelBuilder.Entity("ProjectX.BLL.Models.Teacher", b =>
@@ -365,9 +950,6 @@ namespace ProjectX.DAL.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Age")
-                        .HasColumnType("int");
 
                     b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
@@ -381,12 +963,53 @@ namespace ProjectX.DAL.EF.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PNGName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WorkExperience")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Bio = "Area of interest: development of web applications based on Sitecore, ASP.NET MVC / .NET Core and mobile applications using the Xamarin cross-platform framework; Sitecore JavaScript Services (JSS); the introduction of search engines such as Solr, Coveo; using cloud Azure solutions.",
+                            Email = "VadzimPapko@gmail.com",
+                            FirstName = "Вадим",
+                            LastName = "Папко",
+                            PNGName = "VadzimPapko.jpg",
+                            Phone = "+375291133322",
+                            WorkExperience = "5 years"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Bio = "Area of interest: development of web applications in ASP.NET MVC using JavaScript libraries (Angular, JQuery), API, microservices, Data Science, Machine Learning. Agile software development methodologies (Agile, Scrum, Kanban, Lean).",
+                            Email = "DmitriyAlhimovich@gmail.com",
+                            FirstName = "Дмитрий",
+                            LastName = "Альхимович",
+                            PNGName = "DmitriyAlhimovich.jpg",
+                            Phone = "+375293322211",
+                            WorkExperience = "10 years"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Bio = "Area of interest: optimization, programming of gameplay systems.",
+                            Email = "RostislavNikishin@gmail.com",
+                            FirstName = "Ростислав",
+                            LastName = "Никишин",
+                            PNGName = "RostislavNikishin.jpg",
+                            Phone = "+375441188800",
+                            WorkExperience = "4 years"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -483,15 +1106,7 @@ namespace ProjectX.DAL.EF.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProjectX.BLL.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Course");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("ProjectX.BLL.Models.Course", b =>

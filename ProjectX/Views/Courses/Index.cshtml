@@ -1,32 +1,30 @@
 ﻿@using ProjectX.MVC.ViewModel
-@{  }
+@{
+    string specializationTitle = ViewBag.SpecializationTitle;
+}
 
 @model List<CourseViewModel>
 
-<body id="page-top">
-    <h1 class="display-4">FRONTEND DEVELOPER<br></h1>
-<div class="card-group">
-    
-    @foreach (var course in Model)
-    {
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">@course.Title<br></h4>
-                <p class="card-text">@course.Description</p>
-                @if (@course.NecessaryPreKnowledge != null)
-                {
-                    <p>Necessary pre-knowledge:&nbsp;<br>@course.NecessaryPreKnowledge<br></p>
-                }
+<body>
+    <h1 class="display-4">@specializationTitle.ToUpper()<br></h1>
+    <div class="card-group">
 
-                <p>Cost : @course.Cost BYN<br></p><button class="btn btn-primary" type="button">Enroll in a course<br></button>
+        @foreach (var course in Model)
+        {
+            <div class="card col">
+                <div class="card-body">
+                    <h4 class="card-title">@course.Title<br></h4>
+                    <p class="card-text">@course.Description</p>
+                    @if (@course.NecessaryPreKnowledge != null)
+                    {
+                        <p>Necessary pre-knowledge:&nbsp;<br>@course.NecessaryPreKnowledge<br></p>
+                    }
+
+                    <p>Cost : @course.Cost BYN<br></p>
+                    <a asp-controller="Requests" asp-action="EditFromQuery"
+                       asp-route-id="@course.Id" class="btn btn-primary">Enroll in a course<br></a>
+                </div>
             </div>
-        </div>
-
-    }
-
-   
-    
-    
-
-</div>
+        }
+    </div>
 </body>

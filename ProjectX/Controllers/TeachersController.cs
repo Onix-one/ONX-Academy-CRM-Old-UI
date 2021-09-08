@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
@@ -8,12 +7,10 @@ using ProjectX.MVC.ViewModel;
 
 namespace ProjectX.MVC.Controllers
 {
-    [Authorize]
     public class TeachersController : Controller
     {
         private readonly IEntityService<Teacher> _teacherService;
         private readonly IMapper _mapper;
-
         public TeachersController(IEntityService<Teacher> teacherService, IMapper mapper)
         {
             _mapper = mapper;
@@ -22,8 +19,12 @@ namespace ProjectX.MVC.Controllers
 
         public IActionResult Index()
         {
-            var teachers = _teacherService.GetAll();
-            return View(_mapper.Map<IEnumerable<TeacherViewModel>>(teachers));
+            var teachers = _mapper.Map<IEnumerable<TeacherViewModel>>(_teacherService.GetAll());
+            if (User.IsInRole("manager"))
+            {
+                return View(teachers);
+            }
+            return View("IndexFromStudents", teachers);
         }
         [HttpGet]
         public IActionResult Edit(int? id)
@@ -39,12 +40,10 @@ namespace ProjectX.MVC.Controllers
             {
                 return View(teacher);
             }
-
             if (teacher.Id != 0)
                 _teacherService.Update(_mapper.Map<Teacher>(teacher));
             else
                 _teacherService.Create(_mapper.Map<Teacher>(teacher));
-
             _teacherService.Save();
             return RedirectToAction("Index");
         }

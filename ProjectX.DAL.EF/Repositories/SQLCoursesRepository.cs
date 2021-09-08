@@ -16,10 +16,10 @@ namespace ProjectX.DAL.EF.Repositories
         }
         public IEnumerable<Course> GetAll()
         {
-            return _context.Courses
-                .Include(_ => _.Groups)
-                .Include(_ => _.Specialization)
-                .AsNoTracking().ToList();
+            return _context.Courses.AsNoTracking()
+                .Include(_ => _.Groups).AsNoTracking()
+                .Include(_ => _.Specialization).AsNoTracking()
+                .ToList();
         }
         public Course GetEntity(int id)
         {

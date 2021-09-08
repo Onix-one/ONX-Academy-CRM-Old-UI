@@ -2,21 +2,22 @@
 
 @model IEnumerable<TeacherViewModel>
 
-<div class="container-fluid" data-aos="fade-down" data-aos-duration="600">
+<div class="container-fluid widthInfoCard" data-aos="fade-down" data-aos-duration="600">
     <div class="card shadow">
         <div class="card-header py-3">
-            <h2 class="text-center m-0 font-weight-bold">Students Info</h2>
+            <h2 class="text-center m-0 font-weight-bold">Teachers Info</h2>
         </div>
         <a asp-controller="Teachers" asp-action="Edit" class="btn btn-success">Add new teacher</a>
         <div class="card-body">
             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                <table class="table table-bordered">
+                <table class=" table table-bordered">
                     <tr>
                         <th>ID</th>
                         <th>Last Name</th>
                         <th>First Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Work Experience</th>
                         <th>Bio</th>
                     </tr>
                     @foreach (var teacher in Model)
@@ -27,6 +28,7 @@
                             <td>@teacher.FirstName</td>
                             <td>@teacher.Email</td>
                             <td>@teacher.Phone</td>
+                            <td>@teacher.WorkExperience</td>
                             <td>@teacher.Bio</td>
                             <td>
                                 <a asp-controller="Teachers" asp-action="Edit" asp-route-id="@teacher.Id" class="btn btn-outline-primary">Edit</a>

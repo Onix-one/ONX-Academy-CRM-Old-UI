@@ -2,11 +2,14 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<div class="btn-group">
+<div class="dropdown">
     @if (SignInManager.IsSignedIn(User))
     {
-    <button class="btn btn-primary" type="button">Authentication</button>
-        <a class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false" role="button"></a>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Authentication
+        </button>
+
+       
         <div class="dropdown-menu" role="menu">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
@@ -14,9 +17,12 @@
     }
     else
     {
-<button class="btn btn-primary" type="button">Authentication</button>
-        <a class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false" role="button"></a>
-        <div class="dropdown-menu" role="menu">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Authentication
+        </button>
+
+       
+        <div class="dropdown-menu">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </div>

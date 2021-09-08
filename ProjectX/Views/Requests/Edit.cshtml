@@ -1,1 +1,105 @@
-﻿
+﻿@using ProjectX.MVC.ViewModel;
+@{
+    var courseName = ViewBag.CourseName;
+    var managerCreateRequest = Model.Id == 0 & Model.CourseId == 0;
+    var managerEditRequest = Model.Id != 0 & Model.CourseId != 0;
+    var studentCreateRequest = Model.Id == 0 & Model.CourseId != 0;
+    var headerText = string.Empty;
+    var studentTypeList = new Dictionary<int, string>
+    {
+        [0] = "Online",
+        [1] = "Offline",
+        [2] = "Mix"
+    };
+
+}
+@model StudentRequestViewModel
+
+<div class="row align-items-center">
+    <div class="card shadow widthEditCard">
+        <div class="card-header  py-3">
+            @if (managerCreateRequest)
+            {
+                headerText = "Create request";
+            }
+            else if (studentCreateRequest)
+            {
+                headerText = $"Your application for the course {courseName.ToString()}";
+            }
+            else if(managerEditRequest)
+            {
+                headerText = "Edit request";
+            }
+            <h2 class="text-center m-0 font-weight-bold">@headerText</h2>
+            <form asp-action="Edit" method="post">
+                <div>
+                    @Html.HiddenFor(m => m.Created)
+                    <div class="form-group">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span class="alert-danger" asp-validation-for="FirstName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span class="alert-danger" asp-validation-for="LastName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span class="alert-danger" asp-validation-for="Phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span class="alert-danger" asp-validation-for="Phone"></span>
+                    </div>
+                    @if (managerCreateRequest || managerEditRequest)
+                    {
+                        <div class="form-group">
+                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Course</label>
+                            <select asp-for="CourseId" class="form-control" id="inlineFormCustomSelectPref1">
+                                <option selected value="">Choose...</option>
+                                @foreach (CourseViewModel course in ViewBag.Courses)
+                                {
+                                    <option value="@course.Id">@course.Title</option>
+                                }
+                            </select>
+                        </div>
+                    }
+                    @Html.HiddenFor(m => m.CourseId)
+                    <div class="form-group">
+                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref2">Type of Training</label>
+                        <select asp-for="Type" class="form-control" id="inlineFormCustomSelectPref2">
+                            <option selected value="">Choose...</option>
+                            @foreach (var type in studentTypeList)
+                            {
+                                <option value="@type.Key">@type.Value</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Comments"></label>
+                        <textarea class="form-control" rows="3" asp-for="Comments"></textarea>
+                        <span class="alert-danger" asp-validation-for="Comments"></span>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                        @if (studentCreateRequest)
+                        {
+                            <a class="btn btn-secondary" asp-controller="Courses" asp-action="Index">Cancel</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+                        }
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial.cshtml")
+}

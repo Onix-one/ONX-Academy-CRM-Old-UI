@@ -14,16 +14,14 @@ namespace ProjectX.DAL.EF.Repositories
         {
             _context = context;
         }
-
-        public SqlStudentsRepository()
-        {
-            
-        }
-
         public IEnumerable<Student> GetAll()
         {
-            return _context.Students.Include(_=>_.Group).AsNoTracking().ToList();
+            return _context.Students.AsNoTracking()
+                .Include(_=>_.Group)
+                .ThenInclude(_=>_.Course)
+                .AsNoTracking().ToList();
         }
+
         public Student GetEntity(int id)
         {
             return _context.Students.Find(id);
