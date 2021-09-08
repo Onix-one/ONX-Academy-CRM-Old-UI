@@ -11,9 +11,8 @@
         <a asp-controller="Requests" asp-action="Edit" class="btn btn-success">Add new student request</a>
         <div class="card-body">
             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                <table class="table table-bordered">
+                <table class="table-hover dataTable my-0" id="dataTable">
                     <tr>
-                        <th>ID</th>
                         <th>Created</th>
                         <th>Last Name</th>
                         <th>First Name</th>
@@ -25,35 +24,34 @@
                     </tr>
                     @foreach (var request in Model)
                     {
-                <tr>
-                    <td>@request.Id</td>
-                    <td>@request.Created</td>
-                    <td>@request.LastName</td>
-                    <td>@request.FirstName</td>
-                    <td>@request.Phone</td>
-                    <td>@request.Email</td>
+                        <tr>
+                            <td>@request.Created</td>
+                            <td>@request.LastName</td>
+                            <td>@request.FirstName</td>
+                            <td>@request.Phone</td>
+                            <td>@request.Email</td>
 
 
-                    @if (request.CourseId != null)
-                    {
-                        <td>@request.Course.Title</td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
-                    <td>@request.Type.ToString()</td>
-                    <td>@request.Comments</td>
-                    <td>
-                        <a asp-controller="Requests" asp-action="Edit" asp-route-id="@request.Id" class="btn btn-outline-primary">Edit</a>
-                    </td>
-                    <td>
-                        <form asp-action="Delete" method="post">
-                            <input type="hidden" name="id" value="@request.Id" />
-                            <button type="submit" class="btn btn-outline-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
+                            @if (request.CourseId != null)
+                            {
+                                <td>@request.Course.Title</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td>@request.Type.ToString()</td>
+                            <td>@request.Comments</td>
+                            <td>
+                                <a asp-controller="Requests" asp-action="Edit" asp-route-id="@request.Id" class="btn btn-outline-primary">Edit</a>
+                            </td>
+                            <td>
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@request.Id" />
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
                     }
                     <tr>
                         <td>

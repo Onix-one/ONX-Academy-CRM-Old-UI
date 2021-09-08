@@ -18,10 +18,6 @@ namespace AcademyCRM.Api.Mapper
                     map => map
                         .MapFrom(g => $"{g.Teacher.LastName} {g.Teacher.FirstName}"))
                 .ReverseMap();
-
-
-
         }
     }
-
 }
