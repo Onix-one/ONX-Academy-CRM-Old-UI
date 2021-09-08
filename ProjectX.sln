@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectX.DAL", "ProjectX.DA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectX.DAL.EF", "ProjectX.DAL.EF\ProjectX.DAL.EF.csproj", "{174CA0DC-BACE-44BC-A06B-825816AFBEA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectX.WebAPI", "ProjectX.WebAPI\ProjectX.WebAPI.csproj", "{09F0D01E-BB06-43D4-A043-63B565068F7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjectX.WebAPI", "ProjectX.WebAPI\ProjectX.WebAPI.csproj", "{09F0D01E-BB06-43D4-A043-63B565068F7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

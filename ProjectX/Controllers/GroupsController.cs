@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
@@ -7,22 +9,27 @@ using ProjectX.MVC.ViewModel;
 
 namespace ProjectX.MVC.Controllers
 {
+    [Authorize(Roles = "manager")]
     public class GroupsController : Controller
     {
         private readonly IGroupService _groupService;
         private readonly IMapper _mapper;
         private readonly IEnumerable<TeacherViewModel> _teachersCollectionForViewModel;
-
-        public GroupsController(IGroupService groupService, IEntityService<Teacher> teacherService, IMapper mapper)
+        private readonly IEnumerable<CourseViewModel> _coursesCollectionForViewModel;
+        public GroupsController(IGroupService groupService, IEntityService<Teacher> teacherService, IEntityService<Course> courseService, IMapper mapper)
         {
             _mapper = mapper;
             _groupService = groupService;
+
             var teachersCollection = teacherService.GetAll();
+            var coursesCollection = courseService.GetAll();
             _teachersCollectionForViewModel = _mapper.Map<IEnumerable<TeacherViewModel>>(teachersCollection);
+            _coursesCollectionForViewModel = _mapper.Map<IEnumerable<CourseViewModel>>(coursesCollection).ToList();
         }
 
         public IActionResult Index()
         {
+
             var groups = _groupService.GetAll();
             ViewData["Groups"] = _mapper.Map<IEnumerable<GroupViewModel>>(groups);
             return View();
@@ -30,8 +37,9 @@ namespace ProjectX.MVC.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            ViewBag.Teachers = _teachersCollectionForViewModel;
 
+            ViewBag.Teachers = _teachersCollectionForViewModel;
+            ViewBag.Courses = _coursesCollectionForViewModel;
             return View(id.HasValue 
                 ? _mapper.Map<GroupViewModel>(_groupService.GetGroup(id.Value)) 
                 : new GroupViewModel());
@@ -40,6 +48,7 @@ namespace ProjectX.MVC.Controllers
         public IActionResult Edit(GroupViewModel group)
         {
             ViewBag.Teachers = _teachersCollectionForViewModel;
+            ViewBag.Courses = _coursesCollectionForViewModel;
             if (!ModelState.IsValid)
                 return View(group);
            

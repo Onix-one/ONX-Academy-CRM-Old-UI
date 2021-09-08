@@ -16,7 +16,8 @@ namespace ProjectX.DAL.EF.Repositories
         }
         public IEnumerable<StudentRequest> GetAll()
         {
-            return _context.StudentRequests.AsNoTracking().ToList();
+            return _context.StudentRequests.AsNoTracking()
+                .Include(_=>_.Course).AsNoTracking().ToList();
         }
         public StudentRequest GetEntity(int id)
         {

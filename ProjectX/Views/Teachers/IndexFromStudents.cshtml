@@ -1,0 +1,34 @@
+﻿@using ProjectX.MVC.ViewModel
+@{
+    string fade = "left";
+
+}
+@model IEnumerable<TeacherViewModel>
+<div class="container-fluid widthInfoCard">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h2 class="text-center m-0 font-weight-bold">Teachers Info</h2>
+        </div>
+        <div class="card-body">
+            <tr>
+                @foreach (var teacher in Model)
+                {
+                    <th>
+                        <div class="media border align-top col-12 p-3" data-aos="fade-@fade" data-aos-duration="900">
+                            @{
+                                fade = fade == "left" ? "right" : "left";
+                            }
+                            <img src="@Url.Content($"~/assets/img/{teacher.PNGName}")" class="mr-3 mt-3 rounded-circle" style="width: 60px;">
+                            <div class="media-body">
+                                <h4>@teacher.FullName</h4>
+                                <small><i>WorkExperience: @teacher.WorkExperience</i></small>
+                                <h5>Info</h5>
+                                <p>@teacher.Bio</p>
+                            </div>
+                        </div>
+                    </th>
+                }
+            </tr>
+        </div>
+    </div>
+</div>

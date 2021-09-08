@@ -18,6 +18,7 @@ namespace ProjectX.DAL.EF.Repositories
         {
             return _context.Groups
                 .Include(_ => _.Students).AsNoTracking()
+                .Include(_ => _.Course).AsNoTracking()
                 .Include(_ => _.Teacher).AsNoTracking().ToList();
         }
         public Group GetEntity(int id)

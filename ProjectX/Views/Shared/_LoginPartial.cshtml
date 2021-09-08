@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div class="dropdown">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Authentication
+        </button>
+
+       
+        <div class="dropdown-menu" role="menu">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a>
+        </div>
+    }
+    else
+    {
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Authentication
+        </button>
+
+       
+        <div class="dropdown-menu">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </div>
+    }
+</div>
+

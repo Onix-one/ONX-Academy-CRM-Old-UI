@@ -1,42 +1,53 @@
 ﻿@using ProjectX.MVC.ViewModel
+
 @model IEnumerable<TeacherViewModel>
-<h1>List of Teachers</h1>
-<table class="table table-bordered">
-    <tr>
-        <th>ID</th>
-        <th>Last Name</th>
-        <th>First Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Bio</th>
-    </tr>
-    @foreach (var teacher in Model)
-    {
-        <tr>
-            <td>@teacher.Id</td>
-            <td>@teacher.LastName</td>
-            <td>@teacher.FirstName</td>
-            <td>@teacher.Email</td>
-            <td>@teacher.Phone</td>
-            <td>@teacher.Bio</td>
-            <td>
-                <a asp-action="Edit" asp-route-Id="@teacher.Id"
-                   class="btn btn-outline-primary">
-                    Edit
-                </a>
-            </td>
-            <td>
-                <form asp-action="Delete" method="post">
-                    <input type="hidden" name="id" value="@teacher.Id" />
-                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-    }
-    <tr>
-        <td>
-            <div class="text-info">Total: @Model.Count()</div>
-        </td>
-    </tr>
-</table>
-<a class="btn btn-success" asp-action="Edit" >Add new teacher</a>
+
+<div class="container-fluid widthInfoCard" data-aos="fade-down" data-aos-duration="600">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h2 class="text-center m-0 font-weight-bold">Teachers Info</h2>
+        </div>
+        <a asp-controller="Teachers" asp-action="Edit" class="btn btn-success">Add new teacher</a>
+        <div class="card-body">
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class=" table table-bordered">
+                    <tr>
+                        <th>ID</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Work Experience</th>
+                        <th>Bio</th>
+                    </tr>
+                    @foreach (var teacher in Model)
+                    {
+                        <tr>
+                            <td>@teacher.Id</td>
+                            <td>@teacher.LastName</td>
+                            <td>@teacher.FirstName</td>
+                            <td>@teacher.Email</td>
+                            <td>@teacher.Phone</td>
+                            <td>@teacher.WorkExperience</td>
+                            <td>@teacher.Bio</td>
+                            <td>
+                                <a asp-controller="Teachers" asp-action="Edit" asp-route-id="@teacher.Id" class="btn btn-outline-primary">Edit</a>
+                            </td>
+                            <td>
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@teacher.Id" />
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                            <div class="text-info">Total: @Model.Count()</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

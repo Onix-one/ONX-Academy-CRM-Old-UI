@@ -5,7 +5,7 @@ using ProjectX.DAL.Interfaces;
 
 namespace ProjectX.BLL.Services
 {
-    class SpecializationService : ISpecializationService
+    public class SpecializationService : ISpecializationService
     {
         private readonly IRepository<Specialization> _repository;
 

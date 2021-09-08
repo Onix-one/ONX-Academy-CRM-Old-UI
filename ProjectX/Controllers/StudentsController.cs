@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
+using System.Linq;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
@@ -7,6 +10,7 @@ using ProjectX.MVC.ViewModel;
 
 namespace ProjectX.MVC.Controllers
 {
+    [Authorize(Roles = "manager")]
     public class StudentsController : Controller
     {
         private readonly IStudentService _studentService;
@@ -20,10 +24,11 @@ namespace ProjectX.MVC.Controllers
             _groupService = groupService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
-            var students = _studentService.GetAll();
-            return View(_mapper.Map<IEnumerable<StudentViewModel>>(students));
+            return View(id.HasValue
+                ? _mapper.Map<IEnumerable<StudentViewModel>>(_studentService.GetAll().Where(_ => _.GroupId == id))
+                : _mapper.Map<IEnumerable<StudentViewModel>>(_studentService.GetAll()));
         }
         [HttpGet]
         public IActionResult Edit(int? id)
@@ -31,8 +36,8 @@ namespace ProjectX.MVC.Controllers
             var groupsCollection = _groupService.GetAll();
             ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
 
-            return View(id.HasValue 
-                ? _mapper.Map<StudentViewModel>(_studentService.GetStudent(id.Value)) 
+            return View(id.HasValue
+                ? _mapper.Map<StudentViewModel>(_studentService.GetStudent(id.Value))
                 : new StudentViewModel());
         }
         [HttpPost]

@@ -1,17 +1,14 @@
 ﻿using System;
-using ProjectX.BLL.Models;
+using ProjectX.BLL.Enums;
 
 namespace ProjectX.MVC.ViewModel
 {
-    public class StudentRequestViewModel
+    public class StudentRequestViewModel : PersonViewModel
     {
-        public int Id { get; set; }
         public DateTime? Created { get; set; }
-        public DateTime? Updated { get; set; }
-        public int? StudentId { get; set; }
-        public Student Student { get; set; }
-        public int? CourseId { get; set; }
-        public Course Course { get; set; }
+        public int CourseId { get; set; }
+        public CourseViewModel Course { get; set; }
+        public StudentType? Type { get; set; }
         public string? Comments { get; set; }
     }
 }

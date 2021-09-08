@@ -14,7 +14,7 @@ namespace ProjectX.DAL.EF.Repositories
         {
             _context = context;
         }
-        public IEnumerable<Teacher> GetAll()
+        public  IEnumerable<Teacher> GetAll()
         {
             return _context.Teachers.AsNoTracking().ToList();
         }

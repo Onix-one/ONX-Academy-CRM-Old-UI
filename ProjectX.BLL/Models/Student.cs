@@ -8,4 +8,5 @@ namespace ProjectX.BLL.Models
         public Group Group { get; set; }
         public StudentType? Type { get; set; }
     }
+
 }

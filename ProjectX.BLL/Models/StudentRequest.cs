@@ -1,16 +1,14 @@
 ﻿using System;
+using ProjectX.BLL.Enums;
 
 namespace ProjectX.BLL.Models
 {
-    public class StudentRequest
+    public class StudentRequest : Person
     {
-        public int Id { get; set; }
-        public DateTime? Created { get; set; }
-        public DateTime? Updated { get; set; }
-        public int? StudentId { get; set; }
-        public Student Student { get; set; }
-        public int? CourseId { get; set; }
-        public Course Course{ get; set; }
+        public DateTime Created { get; set; }
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
+        public StudentType? Type { get; set; }
         public string? Comments { get; set; }
     }
 }

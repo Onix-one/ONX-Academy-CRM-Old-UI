@@ -11,7 +11,6 @@ namespace ProjectX.MVC.Controllers
     {
         private readonly IEntityService<Teacher> _teacherService;
         private readonly IMapper _mapper;
-
         public TeachersController(IEntityService<Teacher> teacherService, IMapper mapper)
         {
             _mapper = mapper;
@@ -20,14 +19,18 @@ namespace ProjectX.MVC.Controllers
 
         public IActionResult Index()
         {
-            var teachers = _teacherService.GetAll();
-            return View(_mapper.Map<IEnumerable<TeacherViewModel>>(teachers));
+            var teachers = _mapper.Map<IEnumerable<TeacherViewModel>>(_teacherService.GetAll());
+            if (User.IsInRole("manager"))
+            {
+                return View(teachers);
+            }
+            return View("IndexFromStudents", teachers);
         }
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            return View(id.HasValue 
-                ? _mapper.Map<TeacherViewModel>(_teacherService.GetEntityById(id.Value)) 
+            return View(id.HasValue
+                ? _mapper.Map<TeacherViewModel>(_teacherService.GetEntityById(id.Value))
                 : new TeacherViewModel());
         }
         [HttpPost]
@@ -37,12 +40,10 @@ namespace ProjectX.MVC.Controllers
             {
                 return View(teacher);
             }
-
             if (teacher.Id != 0)
                 _teacherService.Update(_mapper.Map<Teacher>(teacher));
             else
                 _teacherService.Create(_mapper.Map<Teacher>(teacher));
-
             _teacherService.Save();
             return RedirectToAction("Index");
         }

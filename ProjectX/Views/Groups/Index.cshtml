@@ -3,51 +3,75 @@
     var viewData = (IEnumerable<GroupViewModel>)ViewData["Groups"];
     var groups = viewData.ToList();
 }
-
 @model GroupViewModel
 
-<h1>List of Groups</h1>
-<table class="table table-bordered">
-    <tr>
-        <th>ID</th>
-        <th>Number</th>
-        <th>Teacher</th>
-        <th>StartDate</th>
-        <th>Status</th>
-    </tr>
-    @foreach (var group in groups)
-    {
-        <tr>
-            <td>@group.Id</td>
-            <td>@group.Number</td>
-            @if (group.TeacherName != null)
-            {
-                <td>@group.TeacherName</td>
-            }
-            else
-            {
-                <td></td>
-            }
-            <td>@group.StartDate</td>
-            <td>@group.Status.ToString()</td>
-            <td>
-                <a asp-action="Edit" asp-route-Id="@group.Id"
-                       class="btn btn-outline-primary">
-                        Edit
-                    </a>
-            </td>
-            <td>
-                <form asp-action="Delete" method="post">
-                    <input type="hidden" name="id" value="@group.Id" />
-                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-    }
-    <tr>
-        <td>
-            <div class="text-info">Total: @groups.Count()</div>
-        </td>
-    </tr>
-</table>
-<a class="btn btn-success" asp-action="Edit">Add new group</a>
+<div class="container-fluid widthInfoCard" data-aos="fade-down" data-aos-duration="600">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h2 class="text-center m-0 font-weight-bold">Groups Info</h2>
+        </div>
+        <a asp-controller="Groups" asp-action ="Edit" class="btn btn-success">Add new group</a>
+        <div class="card-body">
+            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                <table class="table dataTable my-0" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Number</th>
+                            <th>Course</th>
+                            <th>Teacher</th>
+                            <th>StartDate</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var group in groups)
+                        {
+                        <tr>
+                            <td>@group.Id</td>
+                            <td>@group.Number</td>
+                            @if (group.CourseId != null)
+                            {
+                                <td>@group.Course.Title</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            @if (group.TeacherName != null)
+                            {
+                                <td>@group.TeacherName</td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td>@group.StartDate.Day.@group.StartDate.Month.@group.StartDate.Year</td>
+                            <td>@group.Status.ToString()</td>
+                            <td>
+                                <a asp-controller="Students" asp-action="Index" asp-route-id="@group.Id" class="btn btn-outline-info">View</a>
+                            </td>
+                            <td>
+                                <a asp-controller="Groups" asp-action="Edit" asp-route-id="@group.Id" class="btn btn-outline-primary">Edit</a>
+                            </td>
+                            <td>
+                                <form asp-action="Delete" method="post">
+                                    <input type="hidden" name="id" value="@group.Id" />
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <div class="text-info">Total: @groups.Count()</div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

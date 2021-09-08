@@ -2,7 +2,7 @@
 
 namespace ProjectX.MVC.ViewModel
 {
-    public class StudentViewModel : PersonVeiwModel
+    public class StudentViewModel : PersonViewModel
     {
         public int? GroupId { get; set; }
         public GroupViewModel Group { get; set; }
