@@ -1,9 +1,7 @@
 ﻿@using ProjectX.MVC.ViewModel
 @{
-    var viewData = (IEnumerable<GroupViewModel>)ViewData["Groups"];
-    var groups = viewData.ToList();
 }
-@model GroupViewModel
+@model IEnumerable<GroupViewModel>
 
 <div class="container-fluid widthInfoCard" data-aos="fade-down" data-aos-duration="600">
     <div class="card shadow">
@@ -25,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var group in groups)
+                        @foreach (var group in Model)
                         {
                         <tr>
                             <td>@group.Id</td>
@@ -66,7 +64,7 @@
                     <tfoot>
                         <tr>
                             <td>
-                                <div class="text-info">Total: @groups.Count()</div>
+                                <div class="text-info">Total: @Model.Count()</div>
                             </td>
                         </tr>
                     </tfoot>

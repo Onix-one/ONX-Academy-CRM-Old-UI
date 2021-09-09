@@ -19,6 +19,8 @@ using ProjectX.MVC.ViewModel;
         private readonly IEnumerable<CourseViewModel> _coursesCollectionForViewModel;
         private readonly IEnumerable<StudentViewModel> _studentsCollectionForViewModel;
         private readonly ILogger<RequestsController> _logger;
+        private readonly IEnumerable<Student> _studentsCollection;
+
         public RequestsController(IEntityService<StudentRequest> studentRequestsService, 
             IStudentService studentService, IEntityService<Course> courseService, 
             IMapper mapper, ILogger<RequestsController> logger)
@@ -29,8 +31,8 @@ using ProjectX.MVC.ViewModel;
             _studentRequestService = studentRequestsService;
             var coursesCollection = _courseService.GetAll();
             _coursesCollectionForViewModel = _mapper.Map<IEnumerable<CourseViewModel>>(coursesCollection).ToList();
-            var studentsCollection = studentService.GetAll();
-            _studentsCollectionForViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(studentsCollection).ToList();
+            _studentsCollection = studentService.GetAll();
+            _studentsCollectionForViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(_studentsCollection).ToList();
         }
         [Authorize(Roles = "manager")]
         public  IActionResult  Index()

@@ -38,6 +38,7 @@ namespace ProjectX.MVC.Controllers
                 _logger.LogError($"Method didn't work({e.Message}), {e.TargetSite}, {DateTime.Now}");
                 return RedirectToAction("Error", "Home");
             }
+
         }
         [HttpGet]
         public IActionResult Edit(int? id)

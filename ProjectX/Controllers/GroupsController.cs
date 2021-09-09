@@ -36,8 +36,7 @@ namespace ProjectX.MVC.Controllers
             try
             {
                 var groups = _groupService.GetAll();
-                ViewData["Groups"] = _mapper.Map<IEnumerable<GroupViewModel>>(groups);
-                return View();
+                return View(_mapper.Map<IEnumerable<GroupViewModel>>(groups));
             }
             catch (Exception e)
             {
@@ -92,7 +91,6 @@ namespace ProjectX.MVC.Controllers
             try
             {
                 _groupService.Delete(id);
-                _groupService.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception e)
