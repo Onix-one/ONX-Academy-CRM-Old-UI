@@ -9,6 +9,6 @@ namespace ProjectX.BLL.Models
         public int CourseId { get; set; }
         public Course Course { get; set; }
         public StudentType? Type { get; set; }
-        public string? Comments { get; set; }
+        public string Comments { get; set; }
     }
 }

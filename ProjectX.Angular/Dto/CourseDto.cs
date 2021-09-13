@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using ProjectX.BLL.Models;
-
-namespace ProjectX.MVC.ViewModel
+namespace ProjectX.Angular.Dto
 {
-    public class CourseViewModel
-
+    public class CourseDto
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -12,8 +8,6 @@ namespace ProjectX.MVC.ViewModel
         public string NecessaryPreKnowledge { get; set; }
         public decimal Cost { get; set; }
         public int SpecializationId { get; set; }
-        public SpecializationViewModel Specialization { get; set; }
-        public List<GroupViewModel> Groups { get; set; }
+        public string Specialization { get; set; }
     }
-
 }
