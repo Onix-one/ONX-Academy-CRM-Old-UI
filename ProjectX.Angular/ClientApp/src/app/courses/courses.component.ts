@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+// Вроде готово!
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html'
