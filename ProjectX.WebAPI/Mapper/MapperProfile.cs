@@ -1,27 +1,23 @@
 ﻿using AutoMapper;
 using ProjectX.BLL.Models;
-using ProjectX.WebAPI.Model;
+using ProjectX.WebAPI.Dto;
 
-namespace AcademyCRM.Api.Mapper
+namespace ProjectX.WebAPI.Mapper
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<Student, StudentModel>().ReverseMap();
-            CreateMap<Teacher, TeacherModel>().ReverseMap();
-            CreateMap<Course, CourseModel>().ReverseMap();
-            CreateMap<Specialization, SpecializationModel>().ReverseMap();
-            CreateMap<StudentRequest, StudentRequestModel>().ReverseMap();
-            CreateMap<Group, GroupModel>()
-                .ForMember(model => model.TeacherName,
-                    map => map
-                        .MapFrom(g => $"{g.Teacher.LastName} {g.Teacher.FirstName}"))
+            CreateMap<Student, StudentsDto>()
+                .ForMember(_ => _.GroupId, 
+                    _ => _.MapFrom(_ => _.GroupId))
+                .ForMember(_ => _.GroupNumber,
+                    _=>_.MapFrom(_=>_.Group.Number))
+                .ForMember(_=>_.CourseId,
+                   _=>_.MapFrom(_=>_.Group.CourseId))
+                .ForMember(_ => _.CourseTitle,
+                    _ => _.MapFrom(_ => _.Group.Course.Title))
                 .ReverseMap();
-
-
-
         }
     }
-
 }

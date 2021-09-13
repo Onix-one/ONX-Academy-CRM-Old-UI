@@ -12,7 +12,8 @@ namespace ProjectX.MVC.ViewModel
         public string NecessaryPreKnowledge { get; set; }
         public decimal Cost { get; set; }
         public int SpecializationId { get; set; }
-        public Specialization Specialization { get; set; }
+        public SpecializationViewModel Specialization { get; set; }
         public List<GroupViewModel> Groups { get; set; }
     }
+
 }
