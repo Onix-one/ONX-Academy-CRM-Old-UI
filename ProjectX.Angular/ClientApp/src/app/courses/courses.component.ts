@@ -17,13 +17,12 @@ export class CoursesComponent{
     }, error => console.error(error));
   }
 
-  onSelectSpecialization(id){
-    this.specializationId = id;
-    if (this.specializationId === 0) {
+  onSelectSpecialization(specialization){
+    if (specialization === "Choose...") {
       this.courses = this.coursesAll;
     }
     else {
-      this.courses = this.coursesAll.filter(_ => _.specializationId === this.specializationId);
+      this.courses = this.coursesAll.filter(_ => _.specialization === specialization);
     }
   }
 }
