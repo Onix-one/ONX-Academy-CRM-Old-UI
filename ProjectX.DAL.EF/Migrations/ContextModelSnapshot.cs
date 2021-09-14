@@ -328,6 +328,14 @@ namespace ProjectX.DAL.EF.Migrations
                             Description = "Working with relational databases and being able to write effective queries in SQL are important hard skills for many IT professionals. They are especially needed for those who want to build a successful career in the field of high technology as a back-end developer or move in the direction of Business Intelligence and data analytics. A course on relational databases and SQL in Minsk will help you get the necessary skills. The training program is developed by an IT company.",
                             SpecializationId = 5,
                             Title = "Relational databases and SQL"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Cost = 2099m,
+                            Description = "iOS is the world's second most popular mobile operating system for Apple devices. To simplify the process of developing applications for iOS, the company released the open source programming language Swift. It is an easier-to-read and error-tolerant alternative to Objective-C. Apple is for minimalism, so Swift has a simple syntax, easy to read and easy to write. After completing the iOS course in Minsk, you will be ready for an interview for the junior iOS developer position, you will be able to work in a mobile development team, apply the iOS SDK and Swift, and create your own applications for the App Store.",
+                            SpecializationId = 6,
+                            Title = "Comprehensive Course in iOS App Development"
                         });
                 });
 
