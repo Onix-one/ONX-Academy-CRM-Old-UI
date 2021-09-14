@@ -18,7 +18,7 @@ export class CoursesComponent{
   }
 
   onSelectSpecialization(specialization){
-    if (specialization === "Choose...") {
+    if (specialization === 0) {
       this.courses = this.coursesAll;
     }
     else {
