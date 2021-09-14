@@ -239,8 +239,27 @@ namespace ProjectX.DAL.EF.Contexts
                 SpecializationId = 5,
                 Cost = 990
             };
+            var course11 = new Course()
+            {
+                Id = 17,
+                Title = "Comprehensive Course in iOS App Development",
+                Description = "iOS is the world's second most popular mobile " +
+                              "operating system for Apple devices. To simplify the " +
+                              "process of developing applications for iOS, the company " +
+                              "released the open source programming language Swift. It " +
+                              "is an easier-to-read and error-tolerant alternative to " +
+                              "Objective-C. Apple is for minimalism, so Swift has a simple " +
+                              "syntax, easy to read and easy to write. After completing " +
+                              "the iOS course in Minsk, you will be ready for an interview " +
+                              "for the junior iOS developer position, you will be able " +
+                              "to work in a mobile development team, apply the iOS SDK and " +
+                              "Swift, and create your own applications for the App Store.",
+                NecessaryPreKnowledge = null,
+                SpecializationId = 6,
+                Cost = 2099
+            };
             modelBuilder.Entity<Course>().HasData(course01, course02, course03, course04, course05,
-                course06, course07, course08, course09, course10);
+                course06, course07, course08, course09, course10, course11);
 
             //Add groups
             DateTime dateTimeForGroup01 = new DateTime(2021, 11, 01, 19, 30, 00);
