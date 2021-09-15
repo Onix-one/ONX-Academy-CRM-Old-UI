@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using ProjectX.BLL.Interfaces;
@@ -18,10 +19,11 @@ namespace ProjectX.MVC.Controllers
             _specializationService = specializationService;
             _mapper = mapper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var specializations = _specializationService.GetAll();
-            return View(_mapper.Map<IEnumerable<SpecializationViewModel>>(specializations).ToList());
+            
+            return View(_mapper.
+                Map<IEnumerable<SpecializationViewModel>>(await _specializationService.GetAllAsync()).ToList());
         }
     }
 }

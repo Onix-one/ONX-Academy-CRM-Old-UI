@@ -9,8 +9,9 @@ namespace ProjectX.Angular.Mapper
         public MappingProfile()
         {
             CreateMap<Course, CourseDto>()
-                .ForMember(_ => _.Specialization,
-                    _ => _.MapFrom(_ => _.Specialization.Title))
+                .ForMember(model => model.Specialization,
+                    map => map
+                        .MapFrom(_ => _.Specialization.Title))
                 .ReverseMap();
         }
     }

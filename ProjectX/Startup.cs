@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using AcademyCRM.MVC.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using ProjectX.DAL.EF.Contexts;
+using ProjectX.MVC.Configuration;
 using ProjectX.MVC.ServiceExtensions;
 
 namespace ProjectX.MVC

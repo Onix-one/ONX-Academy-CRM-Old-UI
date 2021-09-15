@@ -1,6 +1,6 @@
 ﻿ using System;
 using System.Collections.Generic;
-using System.Linq;
+ using System.Threading.Tasks;
  using AutoMapper;
  using Microsoft.AspNetCore.Authorization;
  using Microsoft.AspNetCore.Mvc;
@@ -13,13 +13,11 @@ using ProjectX.MVC.ViewModel;
 {
     public class RequestsController : Controller
     {
+        private readonly IMapper _mapper;
+        private readonly ILogger<RequestsController> _logger;
+        private readonly IStudentService _studentService;
         private readonly IEntityService<Course> _courseService;
         private readonly IEntityService<StudentRequest> _studentRequestService;
-        private readonly IMapper _mapper;
-        private readonly IEnumerable<CourseViewModel> _coursesCollectionForViewModel;
-        private readonly IEnumerable<StudentViewModel> _studentsCollectionForViewModel;
-        private readonly ILogger<RequestsController> _logger;
-        private readonly IEnumerable<Student> _studentsCollection;
 
         public RequestsController(IEntityService<StudentRequest> studentRequestsService, 
             IStudentService studentService, IEntityService<Course> courseService, 
@@ -28,18 +26,15 @@ using ProjectX.MVC.ViewModel;
             _mapper = mapper;
             _logger = logger;
             _courseService = courseService;
+            _studentService = studentService;
             _studentRequestService = studentRequestsService;
-            var coursesCollection = _courseService.GetAll();
-            _coursesCollectionForViewModel = _mapper.Map<IEnumerable<CourseViewModel>>(coursesCollection).ToList();
-            _studentsCollection = studentService.GetAll();
-            _studentsCollectionForViewModel = _mapper.Map<IEnumerable<StudentViewModel>>(_studentsCollection).ToList();
         }
         [Authorize(Roles = "manager")]
-        public  IActionResult  Index()
+        public async Task<IActionResult>  Index()
         {
             try
             {
-                var requests = _studentRequestService.GetAll();
+                var requests = await _studentRequestService.GetAllAsync();
                 return View(_mapper.Map<IEnumerable<StudentRequestViewModel>>(requests));
             }
             catch (Exception e)
@@ -51,12 +46,12 @@ using ProjectX.MVC.ViewModel;
         }
         [HttpGet]
         [Authorize(Roles = "manager")]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             try
             {
-                ViewBag.Courses = _coursesCollectionForViewModel;
-                ViewBag.Students = _studentsCollectionForViewModel;
+                ViewBag.Courses = _mapper.Map<IEnumerable<CourseViewModel>>(await _courseService.GetAllAsync());
+                ViewBag.Students = _mapper.Map<IEnumerable<StudentViewModel>>(await _studentService.GetAllAsync());
                 return View(id.HasValue
                     ? _mapper.Map<StudentRequestViewModel>(_studentRequestService.GetEntityById(id.Value))
                     : new StudentRequestViewModel() { Created = null });
@@ -67,29 +62,13 @@ using ProjectX.MVC.ViewModel;
                 return RedirectToAction("Error", "Home");
             }
         }
-        [HttpGet]
-        public IActionResult EditFromQuery(int id)
-        {
-            try
-            {
-                ViewBag.CourseName = _courseService.GetEntityById(id).Title;
-                ViewBag.Courses = _coursesCollectionForViewModel;
-                ViewBag.Students = _studentsCollectionForViewModel;
-                return View("Edit", new StudentRequestViewModel() { Created = null, CourseId = id });
-            }
-            catch (Exception e)
-            {
-                _logger.LogError($"Method didn't work({e.Message}), {e.TargetSite}, {DateTime.Now}");
-                return RedirectToAction("Error", "Home");
-            }
-        }
         [HttpPost]
-        public  IActionResult Edit(StudentRequestViewModel studentRequest)
+        public async Task<IActionResult> Edit(StudentRequestViewModel studentRequest)
         {
             try
             {
-                ViewBag.Courses = _coursesCollectionForViewModel;
-                ViewBag.Students = _studentsCollectionForViewModel;
+                ViewBag.Courses = _mapper.Map<IEnumerable<CourseViewModel>>(await _courseService.GetAllAsync());
+                ViewBag.Students = _mapper.Map<IEnumerable<StudentViewModel>>(await _studentService.GetAllAsync());
                 if (studentRequest.Created == null)
                 {
                     studentRequest.Created = DateTime.Now;
@@ -112,6 +91,22 @@ using ProjectX.MVC.ViewModel;
                     return RedirectToAction("Index");
                 }
                 return RedirectToAction("Index", "Specializations");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Method didn't work({e.Message}), {e.TargetSite}, {DateTime.Now}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> EditFromQuery(int id)
+        {
+            try
+            {
+                ViewBag.CourseName = _courseService.GetEntityById(id).Title;
+                ViewBag.Courses = _mapper.Map<IEnumerable<CourseViewModel>>(await _courseService.GetAllAsync());
+                ViewBag.Students = _mapper.Map<IEnumerable<StudentViewModel>>(await _studentService.GetAllAsync());
+                return View("Edit", new StudentRequestViewModel() { Created = null, CourseId = id });
             }
             catch (Exception e)
             {

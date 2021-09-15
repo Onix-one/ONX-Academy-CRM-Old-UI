@@ -32,8 +32,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Teacher</label>
-                        <select asp-for="TeacherId" class="form-control" id="inlineFormCustomSelectPref1">
+                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref2">Teacher</label>
+                        <select asp-for="TeacherId" class="form-control" id="inlineFormCustomSelectPref2">
                             <option selected value="">Choose...</option>
                             @foreach (TeacherViewModel teacher in ViewBag.Teachers)
                             {
@@ -46,8 +46,8 @@
                         <input asp-for="StartDate" id="hire-date" class="form-control" type="date">
                     </div>
                     <div class="form-group">
-                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref2">Status</label>
-                        <select asp-for="Status" class="form-control" id="inlineFormCustomSelectPref2" novalidate>
+                        <label class="my-1 mr-2" for="inlineFormCustomSelectPref3">Status</label>
+                        <select asp-for="Status" class="form-control" id="inlineFormCustomSelectPref3" novalidate>
                             <option selected value="">Choose...</option>
                             @foreach (var status in statusesList)
                             {

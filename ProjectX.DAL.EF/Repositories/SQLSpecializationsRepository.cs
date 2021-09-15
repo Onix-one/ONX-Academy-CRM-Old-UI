@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjectX.BLL.Models;
 using ProjectX.DAL.EF.Contexts;
@@ -17,6 +18,10 @@ namespace ProjectX.DAL.EF.Repositories
         public IEnumerable<Specialization> GetAll()
         {
             return _context.Specializations.AsNoTracking().ToList();
+        }
+        public async Task<IEnumerable<Specialization>> GetAllAsync()
+        {
+            return await _context.Specializations.AsNoTracking().ToListAsync();
         }
         public Specialization GetEntity(int id)
         {
@@ -40,5 +45,7 @@ namespace ProjectX.DAL.EF.Repositories
         {
             _context.SaveChanges();
         }
+
+       
     }
 }

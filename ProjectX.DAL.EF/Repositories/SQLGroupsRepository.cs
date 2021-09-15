@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjectX.BLL.Models;
 using ProjectX.DAL.EF.Contexts;
@@ -20,6 +21,13 @@ namespace ProjectX.DAL.EF.Repositories
                 .Include(_ => _.Students).AsNoTracking()
                 .Include(_ => _.Course).AsNoTracking()
                 .Include(_ => _.Teacher).AsNoTracking().ToList();
+        }
+        public async Task<IEnumerable<Group>> GetAllAsync()
+        {
+            return await _context.Groups
+                .Include(_ => _.Students).AsNoTracking()
+                .Include(_ => _.Course).AsNoTracking()
+                .Include(_ => _.Teacher).AsNoTracking().ToListAsync();
         }
         public Group GetEntity(int id)
         {

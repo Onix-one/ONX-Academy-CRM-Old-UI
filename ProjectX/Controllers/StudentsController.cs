@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,13 +28,14 @@ namespace ProjectX.MVC.Controllers
             _groupService = groupService;
         }
 
-        public IActionResult Index(int? id)
+        public async Task<IActionResult> Index(int? id)
         {
             try
             {
+                var students = await _studentService.GetAllAsync();
                 return View(id.HasValue
-                    ? _mapper.Map<IEnumerable<StudentViewModel>>(_studentService.GetAll().Where(_ => _.GroupId == id))
-                    : _mapper.Map<IEnumerable<StudentViewModel>>(_studentService.GetAll()));
+                    ? _mapper.Map<IEnumerable<StudentViewModel>>(students.Where(_ => _.GroupId == id))
+                    : _mapper.Map<IEnumerable<StudentViewModel>>(students));
             }
             catch (Exception e)
             {
@@ -42,13 +44,11 @@ namespace ProjectX.MVC.Controllers
             }
         }
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             try
             {
-                var groupsCollection = _groupService.GetAll();
-                ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
-
+                ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(await _groupService.GetAllAsync());
                 return View(id.HasValue
                     ? _mapper.Map<StudentViewModel>(_studentService.GetStudent(id.Value))
                     : new StudentViewModel());
@@ -60,12 +60,11 @@ namespace ProjectX.MVC.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Edit(StudentViewModel student)
+        public async Task<IActionResult> Edit(StudentViewModel student)
         {
             try
             {
-                var groupsCollection = _groupService.GetAll();
-                ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(groupsCollection);
+                ViewBag.Groups = _mapper.Map<IEnumerable<GroupViewModel>>(await _groupService.GetAllAsync());
                 if (!ModelState.IsValid)
                     return View(student);
 
