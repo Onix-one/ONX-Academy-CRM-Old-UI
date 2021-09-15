@@ -10,7 +10,7 @@
         </div>
         <a asp-controller="Requests" asp-action="Edit" class="btn btn-success">Add new student request</a>
         <div class="card-body">
-            <div class="table-responsive table mt-2"  role="grid" aria-describedby="dataTable_info">
+            <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
                 <table class="table-hover  my-0" id="dataTable">
                     <tr>
                         <th>Created</th>
@@ -30,16 +30,7 @@
                             <td>@request.FirstName</td>
                             <td>@request.Phone</td>
                             <td>@request.Email</td>
-
-
-                            @if (request.CourseId != null)
-                            {
-                                <td>@request.Course.Title</td>
-                            }
-                            else
-                            {
-                                <td></td>
-                            }
+                            <td>@request.Course.Title</td>
                             <td>@request.Type.ToString()</td>
                             <td>@request.Comments</td>
                             <td>

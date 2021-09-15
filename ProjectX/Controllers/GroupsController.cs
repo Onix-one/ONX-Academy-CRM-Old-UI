@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -27,7 +26,7 @@ namespace ProjectX.MVC.Controllers
             _logger = logger;
             _groupService = groupService;
             _teacherService = teacherService;
-            _courseService = courseService; ;
+            _courseService = courseService;
         }
 
         public async Task<IActionResult> Index()
