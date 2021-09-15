@@ -3,6 +3,7 @@
     var courseName = ViewBag.CourseName;
     var managerCreateRequest = Model.Id == 0 & Model.CourseId == 0;
     var managerEditRequest = Model.Id != 0 & Model.CourseId != 0;
+    var managerEditRequestSecondVariant = Model.Id != 0 & Model.CourseId == 0;
     var studentCreateRequest = Model.Id == 0 & Model.CourseId != 0;
     var headerText = string.Empty;
     var studentTypeList = new Dictionary<int, string>
@@ -54,18 +55,22 @@
                         <input asp-for="Email" class="form-control" />
                         <span class="alert-danger" asp-validation-for="Phone"></span>
                     </div>
-                    @if (managerCreateRequest || managerEditRequest)
+                    @if (managerCreateRequest || managerEditRequest|| managerEditRequestSecondVariant)
                     {
-                        <div class="form-group">
-                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Course</label>
-                            <select asp-for="CourseId" class="form-control" id="inlineFormCustomSelectPref1">
-                                <option selected value="">Choose...</option>
-                                @foreach (CourseViewModel course in ViewBag.Courses)
-                                {
-                                    <option value="@course.Id">@course.Title</option>
-                                }
-                            </select>
-                        </div>
+                <div class="form-group">
+                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref1">Course</label>
+                    <select asp-for="CourseId" class="form-control" id="inlineFormCustomSelectPref1">
+                        @if(managerCreateRequest)
+                        {
+                        <option selected value="">Choose...</option>
+                        }
+                        @foreach (CourseViewModel course in ViewBag.Courses)
+                        {
+                            <option value="@course.Id">@course.Title</option>
+                        }
+                    </select>
+                    <span class="alert-danger" asp-validation-for="CourseId"></span>
+                </div>
                     }
                     @Html.HiddenFor(m => m.CourseId)
                     <div class="form-group">

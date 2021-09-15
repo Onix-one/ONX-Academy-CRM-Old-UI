@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProjectX.DAL.EF.Contexts;
 using ProjectX.DAL.Interfaces;
@@ -18,6 +19,10 @@ namespace ProjectX.DAL.EF.Repositories
         public IEnumerable<TEntity> GetAll()
         {
             return _entities.ToList();
+        }
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await _entities.ToListAsync();
         }
         public TEntity GetEntity(int id)
         {

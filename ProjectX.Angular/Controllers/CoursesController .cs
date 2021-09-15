@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using ProjectX.Angular.Dto;
 using ProjectX.BLL.Interfaces;
@@ -21,9 +22,9 @@ namespace ProjectX.Angular.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<CourseDto> Get()
+        public async Task<IEnumerable<CourseDto>> Get()
         {
-            return _mapper.Map<IEnumerable<CourseDto>>(_courseService.GetAll());
+            return _mapper.Map<IEnumerable<CourseDto>>(await _courseService.GetAllAsync());
         }
     }
 }

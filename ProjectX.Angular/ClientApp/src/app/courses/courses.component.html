@@ -3,7 +3,7 @@
 <p *ngIf="!courses"><em>Loading...</em></p>
 <form>
   <div class="form-group">
-    <label><H2>Specialization</H2></label>
+    <H2><label>Specialization</label></H2>
     <select type="number" on-change="onSelectSpecialization($event.target.value)" class="form-control col-3">
       <option selected [ngValue]="0">Choose...</option>
       <option [ngValue]="1">Frontend Developer</option>

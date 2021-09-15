@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using ProjectX.BLL.Interfaces;
 using ProjectX.WebAPI.Dto;
@@ -19,9 +20,9 @@ namespace ProjectX.WebAPI.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public List<StudentsDto> GetStudents()
+        public async Task<List<StudentsDto>> GetStudents()
         {
-            var students = _mapper.Map<IEnumerable<StudentsDto>>(_studentService.GetAll()).ToList();
+            var students = _mapper.Map<IEnumerable<StudentsDto>>(await _studentService.GetAllAsync()).ToList();
             return students;
         }
     }

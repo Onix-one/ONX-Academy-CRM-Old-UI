@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,27 +16,24 @@ namespace ProjectX.MVC.Controllers
     {
         private readonly IGroupService _groupService;
         private readonly IMapper _mapper;
-        private readonly IEnumerable<TeacherViewModel> _teachersCollectionForViewModel;
-        private readonly IEnumerable<CourseViewModel> _coursesCollectionForViewModel;
         private readonly ILogger<GroupsController> _logger;
+        private readonly IEntityService<Teacher> _teacherService;
+        private readonly IEntityService<Course> _courseService;
         public GroupsController(IGroupService groupService, IEntityService<Teacher> teacherService, 
             IEntityService<Course> courseService, IMapper mapper, ILogger<GroupsController> logger)
         {
             _mapper = mapper;
             _logger = logger;
             _groupService = groupService;
-            var teachersCollection = teacherService.GetAll();
-            var coursesCollection = courseService.GetAll();
-            _teachersCollectionForViewModel = _mapper.Map<IEnumerable<TeacherViewModel>>(teachersCollection);
-            _coursesCollectionForViewModel = _mapper.Map<IEnumerable<CourseViewModel>>(coursesCollection).ToList();
+            _teacherService = teacherService;
+            _courseService = courseService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
-                var groups = _groupService.GetAll();
-                return View(_mapper.Map<IEnumerable<GroupViewModel>>(groups));
+                return View(_mapper.Map<IEnumerable<GroupViewModel>>(await _groupService.GetAllAsync()));
             }
             catch (Exception e)
             {
@@ -45,12 +42,12 @@ namespace ProjectX.MVC.Controllers
             }
         }
         [HttpGet]
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             try
             {
-                ViewBag.Teachers = _teachersCollectionForViewModel;
-                ViewBag.Courses = _coursesCollectionForViewModel;
+                ViewBag.Teachers = _mapper.Map<IEnumerable<TeacherViewModel>>( await _teacherService.GetAllAsync());
+                ViewBag.Courses = _mapper.Map<IEnumerable<CourseViewModel>>(await _courseService.GetAllAsync());
                 return View(id.HasValue
                     ? _mapper.Map<GroupViewModel>(_groupService.GetGroup(id.Value))
                     : new GroupViewModel());
@@ -62,12 +59,12 @@ namespace ProjectX.MVC.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Edit(GroupViewModel group)
+        public async Task<IActionResult> Edit(GroupViewModel group)
         {
             try
             {
-                ViewBag.Teachers = _teachersCollectionForViewModel;
-                ViewBag.Courses = _coursesCollectionForViewModel;
+                ViewBag.Teachers = _mapper.Map<IEnumerable<TeacherViewModel>>(await _teacherService.GetAllAsync());
+                ViewBag.Courses = _mapper.Map<IEnumerable<CourseViewModel>>(await _courseService.GetAllAsync());
                 if (!ModelState.IsValid)
                     return View(group);
 

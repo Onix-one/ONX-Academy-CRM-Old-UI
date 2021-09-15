@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
 using ProjectX.DAL.Interfaces;
@@ -18,7 +19,10 @@ namespace ProjectX.BLL.Services
         {
             return _repository.GetAll();
         }
-
+        public Task<IEnumerable<Student>> GetAllAsync()
+        {
+            return _repository.GetAllAsync();
+        }
         public Student GetStudent(int id)
         {
             return _repository.GetEntity(id);

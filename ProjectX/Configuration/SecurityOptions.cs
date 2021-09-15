@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AcademyCRM.MVC.Configuration
+﻿namespace ProjectX.MVC.Configuration
 {
     public class SecurityOptions
     {

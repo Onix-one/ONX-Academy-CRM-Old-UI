@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,11 +23,11 @@ namespace ProjectX.MVC.Controllers
             _teacherService = teacherService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
-                var teachers = _mapper.Map<IEnumerable<TeacherViewModel>>(_teacherService.GetAll());
+                var teachers = _mapper.Map<IEnumerable<TeacherViewModel>>(await _teacherService.GetAllAsync());
                 if (User.IsInRole("manager"))
                 {
                     return View(teachers);

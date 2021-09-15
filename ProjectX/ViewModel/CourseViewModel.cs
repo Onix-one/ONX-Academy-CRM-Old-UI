@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ProjectX.BLL.Models;
 
 namespace ProjectX.MVC.ViewModel
 {

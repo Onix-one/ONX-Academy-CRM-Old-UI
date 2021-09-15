@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,13 +26,14 @@ namespace ProjectX.MVC.Controllers
             _mapper = mapper;
             _logger = logger;
         }
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index(int id)
         {
             try
             {
                 ViewBag.SpecializationTitle = _specializationService.GetEntityById(id).Title;
-                var courses = _courseService.GetAll().Where(_ => _.SpecializationId == id);
-                return View(_mapper.Map<IEnumerable<CourseViewModel>>(courses).ToList());
+                var courses = await _courseService.GetAllAsync();
+                return View(_mapper
+                    .Map<IEnumerable<CourseViewModel>>(courses.Where(_ => _.SpecializationId == id)).ToList());
             }
             catch (Exception e)
             {
