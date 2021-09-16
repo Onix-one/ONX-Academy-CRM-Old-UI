@@ -1,5 +1,4 @@
-﻿#nullable enable
-using ProjectX.WebAPI.Enums;
+﻿using ProjectX.WebAPI.Enums;
 
 namespace ProjectX.WebAPI.Dto
 {

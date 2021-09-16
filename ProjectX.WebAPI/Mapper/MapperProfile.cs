@@ -22,6 +22,14 @@ namespace ProjectX.WebAPI.Mapper
                     map => map
                         .MapFrom(_ => _.Group.Course.Title))
                 .ReverseMap();
+            CreateMap<Course, CoursesDto>()
+                .ForMember(model => model.SpecializationId,
+                    map => map
+                        .MapFrom(_ => _.SpecializationId))
+                .ForMember(model => model.SpecializationName,
+                    map => map
+                        .MapFrom(_ => _.Specialization.Title))
+                .ReverseMap();
         }
     }
 }
