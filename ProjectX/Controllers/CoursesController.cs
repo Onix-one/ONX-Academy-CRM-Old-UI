@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
-using ProjectX.DAL.Interfaces;
 using ProjectX.MVC.ViewModel;
 
 namespace ProjectX.MVC.Controllers
