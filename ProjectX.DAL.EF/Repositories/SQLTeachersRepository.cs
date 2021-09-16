@@ -15,7 +15,7 @@ namespace ProjectX.DAL.EF.Repositories
         {
             _context = context;
         }
-        public  IEnumerable<Teacher> GetAll()
+        public IEnumerable<Teacher> GetAll()
         {
             return _context.Teachers.AsNoTracking().ToList();
         }
@@ -30,10 +30,12 @@ namespace ProjectX.DAL.EF.Repositories
         public void Create(Teacher teacher)
         {
             _context.Teachers.Add(teacher);
+            _context.SaveChanges();
         }
         public void Update(Teacher teacher)
         {
             _context.Teachers.Update(teacher);
+            _context.SaveChanges();
         }
         public void Delete(int id)
         {
@@ -49,11 +51,10 @@ namespace ProjectX.DAL.EF.Repositories
                 }
             }
             if (teacher != null)
+            {
                 _context.Teachers.Remove(teacher);
-        }
-        public void Save()
-        {
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -28,7 +28,6 @@ namespace ProjectX.MVC.Controllers
             _teacherService = teacherService;
             _courseService = courseService;
         }
-
         public async Task<IActionResult> Index()
         {
             try
@@ -73,7 +72,6 @@ namespace ProjectX.MVC.Controllers
                 else
                     _groupService.Create(_mapper.Map<Group>(group));
 
-                _groupService.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception e)

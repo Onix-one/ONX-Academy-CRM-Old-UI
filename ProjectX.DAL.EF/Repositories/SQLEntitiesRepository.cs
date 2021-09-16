@@ -31,19 +31,18 @@ namespace ProjectX.DAL.EF.Repositories
         public void Create(TEntity entity)
         {
             _entities.Add(entity);
+            _context.SaveChanges();
         }
         public void Update(TEntity entity)
         {
             _entities.Update(entity);
+            _context.SaveChanges();
         }
         public void Delete(int id)
         {
             TEntity entity = _entities.Find(id);
             if (entity != null)
                 _entities.Remove(entity);
-        }
-        public void Save()
-        {
             _context.SaveChanges();
         }
     }

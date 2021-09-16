@@ -12,8 +12,6 @@ namespace ProjectX.DAL.EF.Contexts
             if (_context == null) { _context = new Context(); }
             return _context;
         }
-
-
         public DbSet<Student> Students { get; set; }/* = default;*/
         public DbSet<Group> Groups { get; set; } = default;
         public DbSet<Teacher> Teachers { get; set; } = default;

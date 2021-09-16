@@ -84,8 +84,6 @@ using ProjectX.MVC.ViewModel;
                 else
                     _studentRequestService.Create(_mapper.Map<StudentRequest>(studentRequest));
 
-                _studentRequestService.Save();
-
                 if (User.IsInRole("admin") || User.IsInRole("manager"))
                 {
                     return RedirectToAction("Index");
@@ -121,7 +119,6 @@ using ProjectX.MVC.ViewModel;
             try
             {
                 _studentRequestService.Delete(id);
-                _studentRequestService.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception e)

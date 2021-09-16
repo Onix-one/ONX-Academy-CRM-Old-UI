@@ -32,20 +32,21 @@ namespace ProjectX.DAL.EF.Repositories
         public void Create(StudentRequest request)
         {
             _context.StudentRequests.Add(request);
+            _context.SaveChanges();
         }
         public void Update(StudentRequest request)
         {
             _context.StudentRequests.Update(request);
+            _context.SaveChanges();
         }
         public void Delete(int id)
         {
             StudentRequest request = _context.StudentRequests.Find(id);
             if (request != null)
+            {
                 _context.StudentRequests.Remove(request);
-        }
-        public void Save()
-        {
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
         }
     }
 }

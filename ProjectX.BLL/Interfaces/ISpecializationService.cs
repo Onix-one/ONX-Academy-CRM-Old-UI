@@ -12,6 +12,5 @@ namespace ProjectX.BLL.Interfaces
         void Create(Specialization item);
         void Update(Specialization item);
         void Delete(int id);
-        void Save();
     }
 }

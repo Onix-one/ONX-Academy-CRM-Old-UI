@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProjectX.BLL\ProjectX.BLL.csproj" />
+    <ProjectReference Include="..\ProjectX.DAL.Dapper\ProjectX.DAL.Dapper.csproj" />
     <ProjectReference Include="..\ProjectX.DAL.EF\ProjectX.DAL.EF.csproj" />
     <ProjectReference Include="..\ProjectX.DAL\ProjectX.DAL.csproj" />
   </ItemGroup>

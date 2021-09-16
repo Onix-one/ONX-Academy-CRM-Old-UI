@@ -36,15 +36,15 @@ namespace ProjectX.DAL.EF.Repositories
         public void Create(Group group)
         {
             _context.Groups.Add(group);
+            _context.SaveChanges();
         }
         public void Update(Group group)
         {
             _context.Groups.Update(group);
+            _context.SaveChanges();
         }
         public void Delete(int id)
         {
-
-
             Group group = _context.Groups.Find(id);
             List<Student> students = _context.Students.AsNoTracking().ToList();
             foreach (var student in students)
@@ -56,14 +56,11 @@ namespace ProjectX.DAL.EF.Repositories
                     _context.SaveChanges();
                 }
             }
-
-
             if (group != null)
+            {
                 _context.Groups.Remove(group);
-        }
-        public void Save()
-        {
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
         }
     }
 }
