@@ -1,5 +1,4 @@
-﻿using ProjectX.WebAPI.Enums;
-
+﻿
 namespace ProjectX.WebAPI.Dto
 {
     public struct CoursesDto

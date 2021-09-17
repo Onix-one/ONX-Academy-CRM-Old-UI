@@ -15,17 +15,18 @@ namespace ProjectX.WebAPI.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<Course> _repository;
+        private readonly IDapperCourseService _dapperCourseService;
 
-        public CoursesController(IStudentService studentService, IMapper mapper, IRepository<Course> repository)
+        public CoursesController(IStudentService studentService, IMapper mapper, IDapperCourseService dapperCourseService)
         {
-            _repository = repository;
+            _dapperCourseService = dapperCourseService;
             _mapper = mapper;
         }
         [HttpGet("GetCourses")]
         public async Task<IEnumerable<CoursesDto>> GetCourses()
         {
-            var courses = _mapper.Map<IEnumerable<CoursesDto>>(await _repository.GetAllAsync()).ToList();
+            var courses = _mapper
+                .Map<IEnumerable<CoursesDto>>(await _dapperCourseService.GetAllAsync()).ToList();
             return courses;
         }
     }

@@ -38,7 +38,9 @@ namespace ProjectX.WebAPI
                 (_ => new SqlConnection(Configuration.GetConnectionString("msSql")));
 
             services.AddScoped<IRepository<Student>, SqlStudentsRepository>();
+            services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IRepository<Course>, DapperCoursesRepository>();
+            services.AddScoped<IDapperCourseService, DapperCourseService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
