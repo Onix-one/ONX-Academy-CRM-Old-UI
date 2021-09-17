@@ -1,6 +1,8 @@
+using System.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
 using ProjectX.BLL.Services;
+using ProjectX.DAL.Dapper.Repositories;
 using ProjectX.DAL.EF.Contexts;
 using ProjectX.DAL.EF.Repositories;
 using ProjectX.DAL.Interfaces;
@@ -18,30 +21,32 @@ namespace ProjectX.WebAPI
 {
     public class Startup
     {
+        private IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        private IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Context>(options =>
-                options.UseSqlServer
-                    (Configuration["SqlServer:ConnectionString"]));
+                options.UseSqlServer(Configuration.GetConnectionString("msSql")));
+
+            //Inject for DapperRepository
+            services.AddTransient<IDbConnection, SqlConnection>
+                (_ => new SqlConnection(Configuration.GetConnectionString("msSql")));
 
             services.AddScoped<IRepository<Student>, SqlStudentsRepository>();
-
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IRepository<Course>, DapperCoursesRepository>();
+            services.AddScoped<IDapperCourseService, DapperCourseService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectX.WebAPI", Version = "v1" });
             });
-
             services.AddScoped<IStudentService, StudentService>();
-
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -50,7 +55,6 @@ namespace ProjectX.WebAPI
             services.AddSingleton(mapper);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

@@ -36,20 +36,21 @@ namespace ProjectX.DAL.EF.Repositories
         public void Create(Student student)
         {
             _context.Students.Add(student);
+            _context.SaveChanges();
         }
         public void Update(Student student)
         {
             _context.Students.Update(student);
+            _context.SaveChanges();
         }
         public void Delete(int id)
         {
             Student student = _context.Students.Find(id);
             if (student != null)
+            {
                 _context.Students.Remove(student);
-        }
-        public void Save()
-        {
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -10,8 +10,8 @@ using ProjectX.DAL.EF.Contexts;
 namespace ProjectX.DAL.EF.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210915013729_initial")]
-    partial class initial
+    [Migration("20210916001217_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

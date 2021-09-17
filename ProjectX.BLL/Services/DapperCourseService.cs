@@ -6,39 +6,36 @@ using ProjectX.DAL.Interfaces;
 
 namespace ProjectX.BLL.Services
 {
-    class StudentRequestService : IStudentRequestService
+    public class DapperCourseService : IDapperCourseService
     {
-        private readonly IRepository<StudentRequest> _repository;
+        private readonly IRepository<Course> _repository;
 
-        public StudentRequestService(IRepository<StudentRequest> repository)
+        public DapperCourseService(IRepository<Course> repository)
         {
             _repository = repository;
         }
 
-        public IEnumerable<StudentRequest> GetAll()
+        public IEnumerable<Course> GetAll()
         {
             return _repository.GetAll();
         }
-        public Task<IEnumerable<StudentRequest>> GetAllAsync()
+        public Task<IEnumerable<Course>> GetAllAsync()
         {
             return _repository.GetAllAsync();
         }
 
-        public StudentRequest GetStudentRequest(int id)
+        public Course GetCourse(int id)
         {
             return _repository.GetEntity(id);
         }
-
-        public void Create(StudentRequest item)
+        public void Create(Course item)
         {
             _repository.Create(item);
         }
-
-        public void Update(StudentRequest item)
+        public void Update(Course item)
         {
             _repository.Update(item);
         }
-
         public void Delete(int id)
         {
             _repository.Delete(id);

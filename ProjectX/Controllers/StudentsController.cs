@@ -73,7 +73,6 @@ namespace ProjectX.MVC.Controllers
                 else
                     _studentService.Create(_mapper.Map<Student>(student));
 
-                _studentService.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -88,7 +87,6 @@ namespace ProjectX.MVC.Controllers
             try
             {
                 _studentService.Delete(id);
-                _studentService.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception e)

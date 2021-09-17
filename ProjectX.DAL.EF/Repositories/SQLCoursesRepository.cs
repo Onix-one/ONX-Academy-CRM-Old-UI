@@ -36,19 +36,18 @@ namespace ProjectX.DAL.EF.Repositories
         public void Create(Course course)
         {
             _context.Courses.Add(course);
+            _context.SaveChanges();
         }
         public void Update(Course course)
         {
             _context.Courses.Update(course);
+            _context.SaveChanges();
         }
         public void Delete(int id)
         {
             Course course = _context.Courses.Find(id);
             if (course != null)
                 _context.Courses.Remove(course);
-        }
-        public void Save()
-        {
             _context.SaveChanges();
         }
     }

@@ -4,7 +4,7 @@ using ProjectX.BLL.Models;
 
 namespace ProjectX.BLL.Interfaces
 {
-    public interface ICourseService
+    public interface IDapperCourseService
     {
         IEnumerable<Course> GetAll();
         Task<IEnumerable<Course>> GetAllAsync();

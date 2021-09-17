@@ -30,22 +30,25 @@ namespace ProjectX.DAL.EF.Repositories
         public void Create(Specialization specialization)
         {
             _context.Specializations.Add(specialization);
+            _context.SaveChanges();
         }
         public void Update(Specialization specialization)
         {
             _context.Specializations.Update(specialization);
+            _context.SaveChanges();
         }
         public void Delete(int id)
         {
             Specialization specialization = _context.Specializations.Find(id);
             if (specialization != null)
+            {
                 _context.Specializations.Remove(specialization);
+                _context.SaveChanges();
+            }
         }
         public void Save()
         {
             _context.SaveChanges();
         }
-
-       
     }
 }

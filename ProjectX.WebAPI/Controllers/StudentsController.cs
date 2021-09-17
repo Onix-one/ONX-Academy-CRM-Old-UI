@@ -9,19 +9,21 @@ using ProjectX.WebAPI.Dto;
 namespace ProjectX.WebAPI.Controllers
 {
     [ApiController]
-    [Route("Students")]
+    [Route("[controller]")]
     public class StudentsController : ControllerBase
     {
         private readonly IStudentService _studentService;
         private readonly IMapper _mapper;
+
         public StudentsController(IStudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
             _mapper = mapper;
         }
-        [HttpGet]
-        public async Task<List<StudentsDto>> GetStudents()
+        [HttpGet("GetStudents")]
+        public async Task<IEnumerable<StudentsDto>> GetStudents()
         {
+
             var students = _mapper.Map<IEnumerable<StudentsDto>>(await _studentService.GetAllAsync()).ToList();
             return students;
         }

@@ -42,10 +42,5 @@ namespace ProjectX.BLL.Services
         {
             _repository.Delete(id);
         }
-
-        public void Save()
-        {
-            _repository.Save();
-        }
     }
 }

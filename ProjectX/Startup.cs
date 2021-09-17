@@ -1,8 +1,10 @@
 using System;
+using System.Data;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,10 +27,14 @@ namespace ProjectX.MVC
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvcCore();
+
             services.AddDbContext<Context>(options =>
-                options.UseSqlServer
-                    (Configuration["SqlServer:ConnectionString"]));
+                options.UseSqlServer(Configuration.GetConnectionString("msSql")));
+
+            //Inject for DapperRepository
+            services.AddTransient<IDbConnection, SqlConnection>
+                (_ => new SqlConnection(Configuration.GetConnectionString("msSql")));
+
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<Context>()
@@ -73,7 +79,7 @@ namespace ProjectX.MVC
                 endpoints.MapRazorPages();
             });
             CreateRoles(serviceProvider, securityOptions).Wait();
-            //app.UseStatusCodePages("text/plain", "Error. Code: {0}");
+
         }
 
         private async Task CreateRoles(IServiceProvider serviceProvider, IOptions<SecurityOptions> securityOptions)

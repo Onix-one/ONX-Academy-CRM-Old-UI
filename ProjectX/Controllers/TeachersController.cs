@@ -22,7 +22,6 @@ namespace ProjectX.MVC.Controllers
             _mapper = mapper;
             _teacherService = teacherService;
         }
-
         public async Task<IActionResult> Index()
         {
             try
@@ -69,7 +68,6 @@ namespace ProjectX.MVC.Controllers
                     _teacherService.Update(_mapper.Map<Teacher>(teacher));
                 else
                     _teacherService.Create(_mapper.Map<Teacher>(teacher));
-                _teacherService.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -84,7 +82,6 @@ namespace ProjectX.MVC.Controllers
             try
             {
                 _teacherService.Delete(id);
-                _teacherService.Save();
                 return RedirectToAction("Index");
             }
             catch (Exception e)

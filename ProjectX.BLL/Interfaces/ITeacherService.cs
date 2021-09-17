@@ -12,6 +12,5 @@ namespace ProjectX.BLL.Interfaces
         void Create(Teacher item);
         void Update(Teacher item);
         void Delete(int id);
-        void Save();
     }
 }
