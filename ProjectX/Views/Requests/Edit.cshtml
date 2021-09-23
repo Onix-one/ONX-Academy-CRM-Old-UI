@@ -12,7 +12,7 @@
         [1] = "Offline",
         [2] = "Mix"
     };
-
+    
 }
 @model StudentRequestViewModel
 
@@ -62,7 +62,8 @@
                     <select asp-for="CourseId" class="form-control" id="inlineFormCustomSelectPref1">
                         @if(managerCreateRequest)
                         {
-                        <option selected value="">Choose...</option>
+                            <option selected value="">Choose...</option>
+                           
                         }
                         @foreach (CourseViewModel course in ViewBag.Courses)
                         {
@@ -92,7 +93,7 @@
                         <button class="btn btn-primary" type="submit">Save</button>
                         @if (studentCreateRequest)
                         {
-                            <a class="btn btn-secondary" asp-controller="Courses" asp-action="Index">Cancel</a>
+                            <a class="btn btn-secondary" asp-controller="Courses" asp-action="Index">Save</a>
                         }
                         else
                         {

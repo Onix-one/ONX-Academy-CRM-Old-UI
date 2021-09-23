@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ProjectX.BLL.Interfaces;
-using ProjectX.BLL.Models;
-using ProjectX.DAL.Interfaces;
 using ProjectX.WebAPI.Dto;
 
 namespace ProjectX.WebAPI.Controllers
@@ -17,7 +15,7 @@ namespace ProjectX.WebAPI.Controllers
         private readonly IMapper _mapper;
         private readonly IDapperCourseService _dapperCourseService;
 
-        public CoursesController(IStudentService studentService, IMapper mapper, IDapperCourseService dapperCourseService)
+        public CoursesController(IMapper mapper, IDapperCourseService dapperCourseService)
         {
             _dapperCourseService = dapperCourseService;
             _mapper = mapper;

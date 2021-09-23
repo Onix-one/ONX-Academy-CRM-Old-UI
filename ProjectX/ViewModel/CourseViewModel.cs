@@ -13,6 +13,7 @@ namespace ProjectX.MVC.ViewModel
         public int SpecializationId { get; set; }
         public SpecializationViewModel Specialization { get; set; }
         public List<GroupViewModel> Groups { get; set; }
+        public int RequestsCount { get; set; }
     }
 
 }

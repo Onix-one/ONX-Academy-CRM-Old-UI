@@ -33,7 +33,7 @@ namespace ProjectX.MVC.Controllers
             try
             {
                 var students = await _studentService.GetAllAsync();
-                return View(id.HasValue
+                return View(id.HasValue 
                     ? _mapper.Map<IEnumerable<StudentViewModel>>(students.Where(_ => _.GroupId == id))
                     : _mapper.Map<IEnumerable<StudentViewModel>>(students));
             }

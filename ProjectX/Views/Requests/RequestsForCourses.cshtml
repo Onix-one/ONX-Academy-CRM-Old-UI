@@ -1,0 +1,54 @@
+﻿@using ProjectX.MVC.ViewModel
+@using System.Linq
+@{
+
+}
+@model IEnumerable<CourseViewModel>
+<div class="container-fluid widthInfoCard">
+    <div class="card shadow">
+        <div class="card-header py-3">
+            <h2 class="text-center m-0 font-weight-bold">Requests Info</h2>
+        </div>
+        <a asp-controller="Requests" asp-action="Edit" class="btn btn-success">Add new student request</a>
+        <form asp-controller="Requests" asp-action="Index" method="post">
+            <div class="card-body">
+                <div class="table-responsive custom-table-height table mt-2" role="grid" aria-describedby="dataTable_info">
+                    <table class="custom-vertical-align custom-table-width table-hover my-0" id="dataTable">
+                        <tr>
+                            <th>Course</th>
+                            <th>Requests</th>
+                        </tr>
+                        @foreach (var course in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @course.Title
+                                </td>
+                                <td>
+                                    @course.RequestsCount
+                                </td>
+                                <td class="custom-width">
+                                    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+                                        <div class="row">
+                                            <div class="collapse navbar-collapse" id="navcol-1">
+                                                <span class="navbar-text actions">
+                                                    <a asp-controller="Requests" asp-action="Index" asp-route-id="@course.Id"
+                                                        class="btn btn-light bg-warning shadow-sm action-button" role="button">View requests</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </nav>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td>
+                                <div class="text-info">Total: @ViewBag.RequestsCount</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

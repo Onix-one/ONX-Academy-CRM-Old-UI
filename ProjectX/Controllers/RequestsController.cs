@@ -1,15 +1,18 @@
-﻿ using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
- using System.Threading.Tasks;
- using AutoMapper;
- using Microsoft.AspNetCore.Authorization;
- using Microsoft.AspNetCore.Mvc;
- using Microsoft.Extensions.Logging;
- using ProjectX.BLL.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using ProjectX.BLL.Enums;
+using ProjectX.BLL.Interfaces;
 using ProjectX.BLL.Models;
 using ProjectX.MVC.ViewModel;
 
- namespace ProjectX.MVC.Controllers
+namespace ProjectX.MVC.Controllers
 {
     public class RequestsController : Controller
     {
@@ -17,32 +20,98 @@ using ProjectX.MVC.ViewModel;
         private readonly ILogger<RequestsController> _logger;
         private readonly IStudentService _studentService;
         private readonly IEntityService<Course> _courseService;
-        private readonly IEntityService<StudentRequest> _studentRequestService;
+        private readonly IStudentRequestService _studentRequestService;
+        private readonly RequestsListViewModel _requests;
+        private readonly IGroupService _groupService;
 
-        public RequestsController(IEntityService<StudentRequest> studentRequestsService, 
-            IStudentService studentService, IEntityService<Course> courseService, 
-            IMapper mapper, ILogger<RequestsController> logger)
+        public RequestsController(IStudentRequestService studentRequestsService,
+            IStudentService studentService, IEntityService<Course> courseService,
+            IMapper mapper, ILogger<RequestsController> logger, RequestsListViewModel requests, IGroupService groupService)
         {
+            _groupService = groupService;
+            _requests = requests;
+            _requests.RequestsList = new List<StudentRequestViewModel>();
             _mapper = mapper;
             _logger = logger;
             _courseService = courseService;
             _studentService = studentService;
             _studentRequestService = studentRequestsService;
         }
+        [HttpGet]
         [Authorize(Roles = "manager")]
-        public async Task<IActionResult>  Index()
+        public async Task<IActionResult> Index(int? id)
         {
             try
             {
                 var requests = await _studentRequestService.GetAllAsync();
-                return View(_mapper.Map<IEnumerable<StudentRequestViewModel>>(requests));
+                var coursesForDropMenu = new Dictionary<int, string>();
+                var studentRequests = requests.ToList();
+                foreach (var course in studentRequests.Select(_ => _.Course))
+                {
+                    coursesForDropMenu[course.Id] = course.Title;
+                }
+                ViewBag.Courses = coursesForDropMenu;
+                if (id.HasValue && id != 0)
+                {
+                    foreach (var request in _mapper.Map<IEnumerable<StudentRequestViewModel>>(studentRequests.Where(_ => _.CourseId == id)))
+                    {
+                        _requests.RequestsList.Add(request);
+                    }
+
+                    var groups = _mapper.Map<IEnumerable<GroupViewModel>>(await _groupService.GetAllAsync()).Where(g => g.CourseId == id);
+
+                    if (groups.Count() != 0)
+                    {
+                        ViewBag.Groups = groups;
+                        ViewBag.GroupExists = true;
+                        ViewBag.CheckingAllowed = true;
+                        return View(_requests);
+                    }
+                    else
+                    {
+                        ViewBag.CheckingAllowed = true;
+                        ViewBag.GroupExists = false;
+                        return View(_requests);
+                    }
+                  
+                    
+
+
+                  
+                }
+                foreach (var request in _mapper.Map<IEnumerable<StudentRequestViewModel>>(studentRequests))
+                {
+                    _requests.RequestsList.Add(request);
+                }
+                ViewBag.CheckingAllowed = false;
+                return View(_requests);
             }
             catch (Exception e)
             {
                 _logger.LogError($"Method didn't work({e.Message}), {e.TargetSite}, {DateTime.Now}");
                 return RedirectToAction("Error", "Home");
             }
-           
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(RequestsListViewModel model)
+        {
+            try
+            {
+                var requests = _mapper.Map<IEnumerable<StudentRequest>>(model.RequestsList.Where(r => r.Selected));
+
+
+                _studentRequestService.AssignRequestToGroups(requests, model.GroupId);
+
+                int i = 0;
+
+                return RedirectToAction("Index", "Groups");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Method didn't work({e.Message}), {e.TargetSite}, {DateTime.Now}");
+                return RedirectToAction("Error", "Home");
+            }
+
         }
         [HttpGet]
         [Authorize(Roles = "manager")]
@@ -67,6 +136,7 @@ using ProjectX.MVC.ViewModel;
         {
             try
             {
+                ViewBag.CoursesSelected = false;
                 ViewBag.Courses = _mapper.Map<IEnumerable<CourseViewModel>>(await _courseService.GetAllAsync());
                 ViewBag.Students = _mapper.Map<IEnumerable<StudentViewModel>>(await _studentService.GetAllAsync());
                 if (studentRequest.Created == null)
@@ -78,15 +148,14 @@ using ProjectX.MVC.ViewModel;
                         return View(new StudentRequestViewModel());
                     else
                         return View(studentRequest);
-
                 if (studentRequest.Id != 0)
                     _studentRequestService.Update(_mapper.Map<StudentRequest>(studentRequest));
                 else
                     _studentRequestService.Create(_mapper.Map<StudentRequest>(studentRequest));
 
-                if (User.IsInRole("admin") || User.IsInRole("manager"))
+                if (User.IsInRole("manager"))
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("RequestsForCourses");
                 }
                 return RedirectToAction("Index", "Specializations");
             }
@@ -96,6 +165,7 @@ using ProjectX.MVC.ViewModel;
                 return RedirectToAction("Error", "Home");
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> EditFromQuery(int id)
         {
@@ -112,6 +182,7 @@ using ProjectX.MVC.ViewModel;
                 return RedirectToAction("Error", "Home");
             }
         }
+
         [HttpPost]
         [Authorize(Roles = "manager")]
         public IActionResult Delete(int id)
@@ -120,6 +191,32 @@ using ProjectX.MVC.ViewModel;
             {
                 _studentRequestService.Delete(id);
                 return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Method didn't work({e.Message}), {e.TargetSite}, {DateTime.Now}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "manager")]
+        public async Task<IActionResult> RequestsForCourses(int? id)
+        {
+            try
+            {
+                var requests = _mapper.Map<IEnumerable<StudentRequestViewModel>>(await _studentRequestService.GetAllAsync()).ToList();
+                var courses = _mapper.Map<IEnumerable<CourseViewModel>>(await _courseService.GetAllAsync()).ToList();
+                var allRequestsCount = 0;
+                foreach (var course in courses)
+                {
+                    var count = requests.Count(r => r.CourseId == course.Id);
+                    allRequestsCount += count;
+                    course.RequestsCount = count;
+                }
+                ViewBag.RequestsCount = allRequestsCount;
+                return View(courses.Where(c => c.RequestsCount != 0));
             }
             catch (Exception e)
             {

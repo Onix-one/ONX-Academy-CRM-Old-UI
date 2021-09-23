@@ -7,7 +7,7 @@ namespace ProjectX.BLL.Services
 {
     public class EntityService<T> : IEntityService<T> where T: class
     {
-        private readonly IRepository<T> _repository;
+        protected readonly IRepository<T> _repository;
 
         public EntityService(IRepository<T> repository)
         {

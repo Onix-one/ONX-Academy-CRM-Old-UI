@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using ProjectX.DAL.EF.Contexts;
 using ProjectX.MVC.Configuration;
 using ProjectX.MVC.ServiceExtensions;
+using ProjectX.MVC.ViewModel;
 
 namespace ProjectX.MVC
 {
@@ -50,6 +51,8 @@ namespace ProjectX.MVC
 
             services.Configure<SecurityOptions>(
                 Configuration.GetSection(SecurityOptions.SectionTitle));
+           
+            services.AddScoped<RequestsListViewModel, RequestsListViewModel>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider,
