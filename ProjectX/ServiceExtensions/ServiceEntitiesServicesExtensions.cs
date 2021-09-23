@@ -14,7 +14,7 @@ namespace ProjectX.MVC.ServiceExtensions
             services.AddScoped<IEntityService<Teacher>, EntityService<Teacher>>();
             services.AddScoped<IEntityService<Course>, EntityService<Course>>();
             services.AddScoped<IEntityService<Specialization>, EntityService<Specialization>>();
-            services.AddScoped<IEntityService<StudentRequest>, EntityService<StudentRequest>>();
+            services.AddScoped<IStudentRequestService, StudentRequestService>();
             return services;
         }
     }

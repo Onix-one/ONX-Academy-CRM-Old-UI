@@ -4,17 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ProjectX</title>
-
+    <title>ProjectX</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css">
+    <link href="~/assets/css/Navigation-with-Button.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="~/assets/css/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css">
+    <link rel="stylesheet" href="~/assets/css/sidebar.css">
 
-    </head>
+</head>
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-light navbar-expand sticky-top bg-secondary align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background-color: rgb(8,8,10);">
@@ -49,11 +49,10 @@
                             </a>
                         </li>
                     }
-
                     @if (User.IsInRole("manager"))
                     {
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link" asp-area="" asp-controller="Requests" asp-action="Index">
+                            <a class="nav-link" asp-area="" asp-controller="Requests" asp-action="RequestsForCourses">
                                 <i class="fas fa-child"></i><span>Requests<br></span>
                             </a>
                         </li>
@@ -86,7 +85,7 @@
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar">
                     <div class="container-fluid">
                         <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -98,7 +97,7 @@
                         <partial name="_LoginPartial" />
                     </div>
                 </nav>
-                <div class="container-fluid align-items-center">
+                <div class=" container-fluid align-items-center">
                     <main role="main" class="pb-3">
                         <div class="row justify-content-center">
                             @RenderBody()
@@ -108,13 +107,13 @@
             </div>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/assets/js/theme.js"></script>
     <script src="~/assets/js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
-@await RenderSectionAsync("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
